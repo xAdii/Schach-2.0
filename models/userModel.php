@@ -14,6 +14,11 @@ class userModel {
     }
 
     // user löschen
+    public function delete_user($id)
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM users WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
 
     // user bearbeiten
 
