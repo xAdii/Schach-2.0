@@ -15,7 +15,7 @@
     <label for="password">Password:</label>
     <input type="password" id="password" name="password">
     <br><br>
-    <input type="submit" value="Sign Up">
+    <input type="submit" value="signup" name="action">
   </form>
 </body>
 
