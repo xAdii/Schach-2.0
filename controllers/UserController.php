@@ -77,11 +77,13 @@ class UserController
     {
         // Validate input
         if (!isset($_POST['username']) || !isset($_POST['password'])) {
-            return;
+            echo "<script>alert('Bitte fülle alle Felder aus.');</script>";
+            $_POST['nav'] = 'login';
         }
 
         if (empty($_POST['username']) || empty($_POST['password'])) {
-            return;
+            echo "<script>alert('Bitte fülle alle Felder aus.');</script>";
+            $_POST['nav'] = 'login';
         }
 
         $username = $_POST['username'] ?? '';
@@ -92,12 +94,15 @@ class UserController
 
         // Check if user exists
         if (!$user) {
+            echo "<script>alert('Benutzer nicht gefunden.');</script>";
+            $_POST['nav'] = 'login';
             return;
         }
 
         // Check if password is correct
         if (!password_verify($password, $user['password'])) {
-            // Invalid password
+            echo "<script>alert('Passwort inkorrekt.');</script>";
+            $_POST['nav'] = 'login';
             return;
         }
 
