@@ -4,6 +4,7 @@
             <button type="submit" name="nav" value="home">Home</button>
             <?= !isset($_SESSION['user']) ? '<button type="submit" name="nav" value="signup">Registrieren</button>' : '' ?>
             <?= !isset($_SESSION['user']) ? '<button type="submit" name="nav" value="login">Anmelden</button>' : '' ?>
+            <?= isset($_SESSION['user']) ? '<button type="submit" name="nav" value="play">Spielen</button>' : '' ?>
             <?= isset($_SESSION['user']) ? '<button type="submit" name="nav" value="dashboard">Dashboard</button>' : '' ?>
             <?= isset($_SESSION['user']) ? '<button type="submit" name="action" value="userLogout">Logout</button>' : '' ?>
         </ul>
