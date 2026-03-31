@@ -21,7 +21,7 @@ class UserController
             return;
         }
 
-        $userActions = ['signup', 'login'];
+        $userActions = ['signup', 'login', 'update_name', 'update_password', 'logout', 'delete_account'];
         if (in_array($_POST['action'], $userActions)) {
             $this->handleUserAction($_POST['action']);
         }
@@ -43,6 +43,17 @@ class UserController
                 $this->userModel->createUser($username, $password);
                 break;
             case 'login':
+                break;
+            case 'update_name':
+                $this->userModel->updateUserName($_SESSION['user']['id'], $username);
+                break;
+            case 'update_password':
+                $this->userModel->updateUserPassword($_SESSION['user']['id'], $password);
+                break;
+            case 'logout':
+                break;
+            case 'delete_account':
+                $this->userModel->deleteUser($_SESSION['user']['id']);
                 break;
         }
     }
