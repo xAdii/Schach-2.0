@@ -67,10 +67,6 @@ class UserController
 
         // Create user
         $this->userModel->createUser($username, $password);
-
-        // Redirect to dashboard
-        header('Location: ' . $_SERVER['PHP_SELF']);
-        exit();
     }
 
     private function handleUserLogin()
@@ -106,25 +102,17 @@ class UserController
             'id' => $user['id'],
             'name' => $user['name']
         ];
-
-        // Redirect to dashboard
-        header('Location: ' . $_SERVER['PHP_SELF']);
-        exit();
     }
 
     private function handleUserLogout()
     {
         unset($_SESSION['user']);
-        header('Location: ' . $_SERVER['PHP_SELF']);
-        exit();
     }
 
     private function handleUserDelete()
     {
         $this->userModel->deleteUser($_SESSION['user']['id']);
         unset($_SESSION['user']);
-        header('Location: ' . $_SERVER['PHP_SELF']);
-        exit();
     }
 
     private function handleUserUpdateName()
