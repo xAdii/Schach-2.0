@@ -1,11 +1,11 @@
 	<h1>Anmelden</h1>
 	<?php include './modules/navigation.php'; ?>
 	<form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-		<label for="username">Username:</label>
+		<label for="username">Benutzername:</label>
 		<input type="text" id="username" name="username">
 		<br><br>
-		<label for="password">Password:</label>
+		<label for="password">Passwort:</label>
 		<input type="password" id="password" name="password">
 		<br><br>
-		<Button type="submit" value="login" name="action">Anmelden</Button>
+		<button type="submit" value="login" name="action">Anmelden</button>
 	</form>

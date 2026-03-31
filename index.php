@@ -30,7 +30,7 @@ $userController->handleRequest();
 <body>
     <?php
     if (!isset($_POST['nav'])) {
-        
+
     }
 
     if (isset($_POST['nav']) && $_POST['nav'] === 'signup') {
@@ -38,7 +38,7 @@ $userController->handleRequest();
     } else if (isset($_POST['nav']) && $_POST['nav'] === 'login') {
         include './views/login.php';
     } else {
-        include './views/index.php';
+        include './views/home.php';
     }
     ?>
 </body>
