@@ -17,44 +17,137 @@ class UserController
         }
 
         // Validate action
-        if (!isset($_POST['userAction']) || empty($_POST['userAction'])) {
+        if (!isset($_POST['action']) || empty($_POST['action'])) {
             return;
         }
 
-        $userActions = ['signup', 'login', 'updateName', 'updatePassword', 'logout', 'delete'];
-        if (in_array($_POST['userAction'], $userActions)) {
-            $this->handleUserAction($_POST['userAction']);
+        switch ($_POST['action']) {
+            case 'userSignup':
+                $this->handleUserSignup();
+                break;
+            case 'userLogin':
+                $this->handleUserLogin();
+                break;
+            case 'userUpdateName':
+                $this->handleUserUpdateName();
+                break;
+            case 'userUpdatePassword':
+                $this->handleUserUpdatePassword();
+                break;
+            case 'userLogout':
+                $this->handleUserLogout();
+                break;
+            case 'userDelete':
+                $this->handleUserDelete();
+                break;
         }
     }
 
-    private function handleUserAction($userAction)
+    private function handleUserSignup()
     {
-        // Validate username and password
-        $username = $_POST['username'] ?? '';
-        $password = $_POST['password'] ?? '';
-
-        if (empty($username) || empty($password)) {
+        // Validate input
+        if (!isset($_POST['username']) || !isset($_POST['password'])) {
             return;
         }
 
-        // Handle user actions
-        switch ($userAction) {
-            case 'signup':
-                $this->userModel->createUser($username, $password);
-                break;
-            case 'login':
-                break;
-            case 'update_name':
-                $this->userModel->updateUserName($_SESSION['user']['id'], $username);
-                break;
-            case 'update_password':
-                $this->userModel->updateUserPassword($_SESSION['user']['id'], $password);
-                break;
-            case 'logout':
-                break;
-            case 'delete_account':
-                $this->userModel->deleteUser($_SESSION['user']['id']);
-                break;
+        if (empty($_POST['username']) || empty($_POST['password'])) {
+            return;
         }
+
+        $username = $_POST['username'] ?? '';
+        $password = $_POST['password'] ?? '';
+
+        // Check if user already exists
+        if ($this->userModel->fetchUser($username)) {
+            return;
+        }
+
+        // Encrypt password
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        // Create user
+        $this->userModel->createUser($username, $password);
+
+        // Redirect to dashboard
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit();
+    }
+
+    private function handleUserLogin()
+    {
+        // Validate input
+        if (!isset($_POST['username']) || !isset($_POST['password'])) {
+            return;
+        }
+
+        if (empty($_POST['username']) || empty($_POST['password'])) {
+            return;
+        }
+
+        $username = $_POST['username'] ?? '';
+        $password = $_POST['password'] ?? '';
+
+        // Get user from database
+        $user = $this->userModel->fetchUser($username);
+
+        // Check if user exists
+        if (!$user) {
+            return;
+        }
+
+        // Check if password is correct
+        if (!password_verify($password, $user['password'])) {
+            // Invalid password
+            return;
+        }
+
+        // Set session
+        $_SESSION['user'] = [
+            'id' => $user['id'],
+            'name' => $user['name']
+        ];
+
+        // Redirect to dashboard
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit();
+    }
+
+    private function handleUserLogout()
+    {
+        unset($_SESSION['user']);
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit();
+    }
+
+    private function handleUserDelete()
+    {
+        $this->userModel->deleteUser($_SESSION['user']['id']);
+        unset($_SESSION['user']);
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit();
+    }
+
+    private function handleUserUpdateName()
+    {
+        // Validate input
+        if (!isset($_POST['username']) || empty($_POST['username'])) {
+            return;
+        }
+
+        $username = $_POST['username'] ?? '';
+
+        $this->userModel->updateUserName($_SESSION['user']['id'], $username);
+    }
+
+    private function handleUserUpdatePassword()
+    {
+        // Validate input
+        if (!isset($_POST['password']) || empty($_POST['password'])) {
+            return;
+        }
+
+        $password = $_POST['password'] ?? '';
+
+        $this->userModel->updateUserPassword($_SESSION['user']['id'], $password);
     }
 }

@@ -8,7 +8,7 @@
 
     <h2>Namen ändern</h2>
     <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-        <input type="hidden" name="action" value="update_name">
+        <input type="hidden" name="action" value="userUpdateName">
         <label for="username">Neuer Benutzername</label><br>
         <input type="text" id="username" name="username" value="<?= htmlspecialchars($user['name']) ?>" required>
         <br><br>
@@ -17,7 +17,7 @@
 
     <h2>Passwort ändern</h2>
     <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-        <input type="hidden" name="action" value="update_password">
+        <input type="hidden" name="action" value="userUpdatePassword">
         <label for="password">Neues Passwort</label><br>
         <input type="password" id="password" name="password" required>
         <br><br>
@@ -26,13 +26,13 @@
 
     <h2>Abmelden</h2>
     <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-        <input type="hidden" name="action" value="logout">
+        <input type="hidden" name="action" value="userLogout">
         <button type="submit">Ausloggen</button>
     </form>
 
     <h2>Account löschen</h2>
     <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" onsubmit="return confirm('Möchtest du deinen Account wirklich löschen?');">
-        <input type="hidden" name="action" value="delete_account">
+        <input type="hidden" name="action" value="userDelete    ">
         <button type="submit">Account löschen</button>
     </form>
 

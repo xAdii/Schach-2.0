@@ -36,10 +36,10 @@ class UserModel
     }
 
     // user prüfen ob er existiert
-    public function fetchUser($name, $password)
+    public function fetchUser($name)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM user WHERE name = ? AND password = ?");
-        $stmt->execute([$name, $password]);
+        $stmt = $this->pdo->prepare("SELECT * FROM user WHERE name = ?");
+        $stmt->execute([$name]);
         return $stmt->fetch();
     }
 }
