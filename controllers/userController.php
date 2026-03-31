@@ -1,5 +1,5 @@
 <?php
-class userController
+class UserController
 {
     private $userModel;
 
@@ -40,10 +40,9 @@ class userController
         // Handle user actions
         switch ($action) {
             case 'signup':
-                $this->userModel->signup($username, $password);
+                $this->userModel->createUser($username, $password);
                 break;
             case 'login':
-                $this->userModel->login($username, $password);
                 break;
         }
     }
