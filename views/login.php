@@ -7,5 +7,5 @@
 		<label for="password">Password:</label>
 		<input type="password" id="password" name="password">
 		<br><br>
-		<Button type="submit" value="login" name="action">Anmelden</Button>
+		<button type="submit" value="login" name="action">Anmelden</button>
 	</form>
