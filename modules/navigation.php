@@ -4,6 +4,7 @@
             <button type="submit" name="nav" value="home">Home</button>
             <button type="submit" name="nav" value="signup">Registrieren</button>
             <button type="submit" name="nav" value="login">Anmelden</button>
+            <button type="submit" name="nav" value="dashboard">Dashboard</button>
         </ul>
     </form>
 </nav>
