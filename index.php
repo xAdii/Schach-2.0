@@ -19,3 +19,4 @@ $userController = new UserController($userModel);
 $userController->handleRequest();
 
 include './views/index.php';
+ 
