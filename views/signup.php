@@ -1,22 +1,11 @@
-<html>
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up</title>
-</head>
-
-<body>
-  <h1>Sign Up</h1>
-  <form action="../index.php" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username">
-    <br><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password">
-    <br><br>
-    <Button type="submit" value="signup" name="action">Sign Up</Button>
-  </form>
-</body>
-
-</html>
+<h1>Sign Up</h1>
+<?php include './modules/navigation.php'; ?>
+<form action="../index.php" method="post">
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username">
+  <br><br>
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password">
+  <br><br>
+  <Button type="submit" value="signup" name="action">Sign Up</Button>
+</form>
