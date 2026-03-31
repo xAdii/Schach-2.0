@@ -1,5 +1,5 @@
 <?php
-require_once '.db_config.php';
+require_once './db_config.php';
 
 spl_autoload_register(function ($classname) {
     $paths = ['models/', 'controllers/'];
