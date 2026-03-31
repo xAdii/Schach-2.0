@@ -17,6 +17,30 @@ $userModel = new UserModel($pdo);
 
 $userController = new UserController($userModel);
 $userController->handleRequest();
+?>
+<!DOCTYPE html>
+<html lang="en">
 
-include './views/signup.php';
- 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <?php
+    if (!isset($_POST['nav'])) {
+        
+    }
+
+    if (isset($_POST['nav']) && $_POST['nav'] === 'signup') {
+        include './views/signup.php';
+    } else if (isset($_POST['nav']) && $_POST['nav'] === 'login') {
+        include './views/login.php';
+    } else {
+        include './views/index.php';
+    }
+    ?>
+</body>
+
+</html>
