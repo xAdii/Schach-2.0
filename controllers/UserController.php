@@ -47,11 +47,13 @@ class UserController
     {
         // Validate input
         if (!isset($_POST['username']) || !isset($_POST['password'])) {
-            return;
+            echo "<script>alert('Bitte fülle alle Felder aus.');</script>";
+            $_POST['nav'] = 'signup';
         }
 
         if (empty($_POST['username']) || empty($_POST['password'])) {
-            return;
+            echo "<script>alert('Bitte fülle alle Felder aus.');</script>";
+            $_POST['nav'] = 'signup';
         }
 
         $username = $_POST['username'] ?? '';
@@ -59,14 +61,16 @@ class UserController
 
         // Check if user already exists
         if ($this->userModel->fetchUser($username)) {
-            return;
+            echo "<script>alert('Benutzername ist bereits vergeben.');</script>";
+            $_POST['nav'] = 'signup';
+        } else {
+
+            // Encrypt password
+            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+            // Create user
+            $this->userModel->createUser($username, $password_hash);
         }
-
-        // Encrypt password
-        $password_hash = password_hash($password, PASSWORD_DEFAULT);
-
-        // Create user
-        $this->userModel->createUser($username, $password_hash);
     }
 
     private function handleUserLogin()
