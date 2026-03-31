@@ -28,6 +28,7 @@ $userController->handleRequest();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./styles/base.css">
+    <link rel="stylesheet" href="./styles/board.css">
 </head>
 
 <body>
@@ -40,6 +41,9 @@ $userController->handleRequest();
         include './views/signup.php';
     } else if (isset($_POST['nav']) && $_POST['nav'] === 'login') {
         include './views/login.php';
+    }
+    else if (isset($_POST['nav']) && $_POST['nav'] === 'play') {
+        include './views/play.php';
     } else if (isset($_POST['nav']) && $_POST['nav'] === 'dashboard') {
         include './views/dashboard.php';
     } else {
