@@ -1,11 +1,12 @@
 <?php
-class UserModel {
+class UserModel
+{
     private $pdo;
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
     }
-    
+
     // user erstellen
     public function createUser($name, $password)
     {
@@ -20,11 +21,18 @@ class UserModel {
         return $stmt->execute([$id]);
     }
 
-    // user bearbeiten
-    public function updateUser($id, $name, $password)
+    // user Passwort bearbeiten
+    public function updateUserPassword($id, $password)
     {
-        $stmt = $this->pdo->prepare("UPDATE user SET name = ?, password = ? WHERE id = ?");
-        return $stmt->execute([$name, $password, $id]);
+        $stmt = $this->pdo->prepare("UPDATE user SET password = ? WHERE id = ?");
+        return $stmt->execute([$password, $id]);
+    }
+
+    // user namen ändern
+    public function updateUserName($id, $name)
+    {
+        $stmt = $this->pdo->prepare("UPDATE user SET name = ? WHERE id = ?");
+        return $stmt->execute([$name, $id]);
     }
 
     // user prüfen ob er existiert
