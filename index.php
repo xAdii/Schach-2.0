@@ -1,11 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
-</head>
-<body>
-    <h1>Schach 2.0 Index Page</h1>
-</body>
-</html>
+<?php
+require_once '.db_config.php';
+
+spl_autoload_register(function ($classname) {
+    $paths = ['models/', 'controllers/'];
+    foreach ($paths as $path) {
+        $file = __DIR__ . '/' . $path . $classname . '.php';
+
+        if (file_exists($file)) {
+            require_once $file;
+            return;
+        }
+    }
+});
+
+$userModel = new UserModel($pdo);
+
+$userController = new UserController($userModel);
+$userController->handleRequest();
+
+include './views/index.php';
