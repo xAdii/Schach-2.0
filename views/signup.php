@@ -1,6 +1,6 @@
 <h1>Sign Up</h1>
 <?php include './modules/navigation.php'; ?>
-<form action="../index.php" method="post">
+<form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
   <label for="username">Username:</label>
   <input type="text" id="username" name="username">
   <br><br>
