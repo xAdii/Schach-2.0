@@ -63,10 +63,10 @@ class UserController
         }
 
         // Encrypt password
-        $password = password_hash($password, PASSWORD_DEFAULT);
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
         // Create user
-        $this->userModel->createUser($username, $password);
+        $this->userModel->createUser($username, $password_hash);
     }
 
     private function handleUserLogin()
@@ -125,6 +125,8 @@ class UserController
         $username = $_POST['username'] ?? '';
 
         $this->userModel->updateUserName($_SESSION['user']['id'], $username);
+
+        $_SESSION['user']['name'] =  $username;
     }
 
     private function handleUserUpdatePassword()
@@ -136,6 +138,9 @@ class UserController
 
         $password = $_POST['password'] ?? '';
 
-        $this->userModel->updateUserPassword($_SESSION['user']['id'], $password);
+        // Encrypt password
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+        $this->userModel->updateUserPassword($_SESSION['user']['id'], $password_hash);
     }
 }

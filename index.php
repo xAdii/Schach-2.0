@@ -32,8 +32,8 @@ $userController->handleRequest();
 
 <body>
     <?php
-    if (!isset($_POST['nav'])) {
-
+    if (isset($_SESSION['user'])) {
+        echo '<p>Angemeldet als: ' . htmlspecialchars($_SESSION['user']['name']) . '</p>';
     }
 
     if (isset($_POST['nav']) && $_POST['nav'] === 'signup') {

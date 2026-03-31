@@ -37,6 +37,6 @@ $user = $_SESSION['user'] ?? null;
 
 <h2>Account löschen</h2>
 <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" onsubmit="return confirm('Möchtest du deinen Account wirklich löschen?');">
-    <input type="hidden" name="action" value="userDelete    ">
+    <input type="hidden" name="action" value="userDelete">
     <button type="submit">Account löschen</button>
 </form>
