@@ -18,5 +18,5 @@ $userModel = new UserModel($pdo);
 $userController = new UserController($userModel);
 $userController->handleRequest();
 
-include './views/index.php';
+include './views/signup.php';
  
