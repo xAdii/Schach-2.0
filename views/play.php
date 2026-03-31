@@ -1,4 +1,5 @@
 <h1>Play</h1>
+<?php include './modules/navigation.php'; ?>
 <div class="board">
     <?php
     for ($i = 0; $i < 8; $i++) {
