@@ -1,8 +1,9 @@
 <?php // $user = $_SESSION['user'] ?? null; ?>
-<?php include './modules/navigation.php'; ?>
 
 <?php // if ($user): ?>
     <h1>Dashboard</h1>
+    <?php include './modules/navigation.php'; ?>
+
     <p>Willkommen, <strong><?= htmlspecialchars($user['name']) ?></strong>.</p>
 
     <h2>Namen ändern</h2>
