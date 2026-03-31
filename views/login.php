@@ -6,8 +6,8 @@
 	<title>Anmeldung</title>
 </head>
 <body>
-	<?php include './modules/navigation.php'; ?>
 	<h2>Anmelden</h2>
+	<?php include './modules/navigation.php'; ?>
 	<form action="../controllers/userController.php" method="post">
 		<label for="username">Benutzername</label><br>
 		<input type="text" id="username" name="username" required><br>
