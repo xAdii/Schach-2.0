@@ -17,17 +17,17 @@ class UserController
         }
 
         // Validate action
-        if (!isset($_POST['action']) || empty($_POST['action'])) {
+        if (!isset($_POST['userAction']) || empty($_POST['userAction'])) {
             return;
         }
 
-        $userActions = ['signup', 'login', 'update_name', 'update_password', 'logout', 'delete_account'];
-        if (in_array($_POST['action'], $userActions)) {
-            $this->handleUserAction($_POST['action']);
+        $userActions = ['signup', 'login', 'updateName', 'updatePassword', 'logout', 'delete'];
+        if (in_array($_POST['userAction'], $userActions)) {
+            $this->handleUserAction($_POST['userAction']);
         }
     }
 
-    private function handleUserAction($action)
+    private function handleUserAction($userAction)
     {
         // Validate username and password
         $username = $_POST['username'] ?? '';
@@ -38,7 +38,7 @@ class UserController
         }
 
         // Handle user actions
-        switch ($action) {
+        switch ($userAction) {
             case 'signup':
                 $this->userModel->createUser($username, $password);
                 break;
