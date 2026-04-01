@@ -1,14 +1,17 @@
 <?php
-class Placeholder extends Schachfigur
+class Placeholder extends GenericPiece
 {
     private $moveSet = [
         [-1, 0],
         [1, 0]
     ];
 
+    private $img;
+
     public function __construct($color, $position)
     {
         parent::__construct($color, $position);
+        $this->img = $color === 'black' ? './images/placeholder_black.png' : './images/placeholder.png';
     }
 
     public function getValidMoves($board)
@@ -27,5 +30,10 @@ class Placeholder extends Schachfigur
 
             array_push($validMoves, $move);
         }
+    }
+
+    public function getImg()
+    {
+        return $this->img;
     }
 }

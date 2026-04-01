@@ -4,7 +4,7 @@ session_start();
 require_once './db_config.php';
 
 spl_autoload_register(function ($classname) {
-    $paths = ['models/', 'controllers/'];
+    $paths = ['models/', 'controllers/', 'pieces/'];
     foreach ($paths as $path) {
         $file = __DIR__ . '/' . $path . $classname . '.php';
 

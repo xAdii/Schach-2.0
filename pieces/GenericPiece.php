@@ -1,5 +1,5 @@
 <?php
-class Schachfigur
+class GenericPiece
 {
     protected $color;
     protected $position;

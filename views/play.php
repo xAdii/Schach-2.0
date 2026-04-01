@@ -2,15 +2,29 @@
 <?php include './modules/navigation.php'; ?>
 <div class="board">
     <?php
+    $board = [
+        [],
+        [new Placeholder('black', [1, 0]), new Placeholder('black', [1, 1]), new Placeholder('black', [1, 2]), new Placeholder('black', [1, 3]), new Placeholder('black', [1, 4]), new Placeholder('black', [1, 5]), new Placeholder('black', [1, 6]), new Placeholder('black', [1, 7])],
+        [],
+        [],
+        [],
+        [],
+        [new Placeholder('white', [6, 0]), new Placeholder('white', [6, 1]), new Placeholder('white', [6, 2]), new Placeholder('white', [6, 3]), new Placeholder('white', [6, 4]), new Placeholder('white', [6, 5]), new Placeholder('white', [6, 6]), new Placeholder('white', [6, 7])],
+        []
+    ];
+
     for ($i = 0; $i < 8; $i++) {
         echo '<div class="row">';
         for ($j = 0; $j < 8; $j++) {
             $color = ($i + $j) % 2 === 0 ? 'white' : 'black';
-            if ($i == 3) {
-                echo '<div class="field ' . $color . '"><img src="./images/placeholder.png" alt="Placeholder"></div>';
-            } else {
-                echo '<div class="field ' . $color . '"></div>';
+
+            $img = '';
+            if (isset($board[$i][$j])) {
+                $piece = $board[$i][$j];
+                $img = '<img src="' . $piece->getImg() . '" alt="Schachfigur">';
             }
+
+            echo '<div class="field ' . $color . '">' . $img . '</div>';
         }
         echo '</div>';
     }
