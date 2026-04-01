@@ -40,6 +40,7 @@ $gameController->handleRequest();
     if (isset($_SESSION['user'])) {
         echo '<p>Angemeldet als: ' . htmlspecialchars($_SESSION['user']['name']) . '</p>';
     }
+    include './modules/error.php';
 
     if (isset($_POST['nav']) && $_POST['nav'] === 'signup') {
         include './views/signup.php';
@@ -50,6 +51,16 @@ $gameController->handleRequest();
     } else if (isset($_POST['nav']) && $_POST['nav'] === 'dashboard') {
         include './views/dashboard.php';
     } else if (isset($_POST['nav']) && $_POST['nav'] === 'anleitung') {
+        include './views/anleitung.php';
+    } else if (isset($_GET['nav']) && $_GET['nav'] === 'signup') {
+        include './views/signup.php';
+    } else if (isset($_GET['nav']) && $_GET['nav'] === 'login') {
+        include './views/login.php';
+    } else if (isset($_GET['nav']) && $_GET['nav'] === 'play') {
+        include './views/play.php';
+    } else if (isset($_GET['nav']) && $_GET['nav'] === 'dashboard') {
+        include './views/dashboard.php';
+    } else if (isset($_GET['nav']) && $_GET['nav'] === 'anleitung') {
         include './views/anleitung.php';
     } else {
         include './views/home.php';

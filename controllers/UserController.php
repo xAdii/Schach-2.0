@@ -10,7 +10,6 @@ class UserController
 
     public function handleRequest()
     {
-
         // Check if the request method is POST
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return;
@@ -43,17 +42,25 @@ class UserController
         }
     }
 
+    private function redirectWithError($error)
+    {
+        $url = $_SERVER['PHP_SELF'] . '?error=' . urlencode($error);
+
+        $url .= '&nav=' . urlencode(isset($_POST['nav']) ? $_POST['nav'] : (isset($_GET['nav']) ? $_GET['nav'] : ''));
+
+        header('Location: ' . $url);
+        exit;
+    }
+
     private function handleUserSignup()
     {
         // Validate input
         if (!isset($_POST['username']) || !isset($_POST['password'])) {
-            echo "<script>alert('Bitte fülle alle Felder aus.');</script>";
-            $_POST['nav'] = 'signup';
+            $this->redirectWithError('emptyFields');
         }
 
         if (empty($_POST['username']) || empty($_POST['password'])) {
-            echo "<script>alert('Bitte fülle alle Felder aus.');</script>";
-            $_POST['nav'] = 'signup';
+            $this->redirectWithError('emptyFields');
         }
 
         $username = $_POST['username'] ?? '';
@@ -61,8 +68,7 @@ class UserController
 
         // Check if user already exists
         if ($this->userModel->fetchUser($username)) {
-            echo "<script>alert('Benutzername ist bereits vergeben.');</script>";
-            $_POST['nav'] = 'signup';
+            $this->redirectWithError('usernameTaken');
         } else {
 
             // Encrypt password
@@ -77,13 +83,11 @@ class UserController
     {
         // Validate input
         if (!isset($_POST['username']) || !isset($_POST['password'])) {
-            echo "<script>alert('Bitte fülle alle Felder aus.');</script>";
-            $_POST['nav'] = 'login';
+            $this->redirectWithError('emptyFields');
         }
 
         if (empty($_POST['username']) || empty($_POST['password'])) {
-            echo "<script>alert('Bitte fülle alle Felder aus.');</script>";
-            $_POST['nav'] = 'login';
+            $this->redirectWithError('emptyFields');
         }
 
         $username = $_POST['username'] ?? '';
@@ -94,16 +98,12 @@ class UserController
 
         // Check if user exists
         if (!$user) {
-            echo "<script>alert('Benutzer nicht gefunden.');</script>";
-            $_POST['nav'] = 'login';
-            return;
+            $this->redirectWithError('userNotFound');
         }
 
         // Check if password is correct
         if (!password_verify($password, $user['password'])) {
-            echo "<script>alert('Passwort inkorrekt.');</script>";
-            $_POST['nav'] = 'login';
-            return;
+            $this->redirectWithError('wrongPassword');
         }
 
         // Set session
@@ -132,10 +132,16 @@ class UserController
         }
 
         $username = $_POST['username'] ?? '';
+        // Get user from database
+        $user = $this->userModel->fetchUser($username);
 
+        // Check if user exists
+        if ($user) {
+            $this->redirectWithError('usernameTaken');
+        }
         $this->userModel->updateUserName($_SESSION['user']['id'], $username);
 
-        $_SESSION['user']['name'] =  $username;
+        $_SESSION['user']['name'] = $username;
     }
 
     private function handleUserUpdatePassword()
@@ -153,3 +159,4 @@ class UserController
         $this->userModel->updateUserPassword($_SESSION['user']['id'], $password_hash);
     }
 }
+?>
