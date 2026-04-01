@@ -20,6 +20,13 @@ class BoardModel
         return $stmt->fetch();
     }
 
+    public function fetchBoardsByUserID($userID)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM boards WHERE playerWhiteID = ? OR playerBlackID = ?");
+        $stmt->execute([$userID, $userID]);
+        return $stmt->fetchAll();
+    }
+
     public function fetchMaxBoardID()
     {
         $stmt = $this->pdo->prepare("SELECT MAX(ID) AS ID FROM boards");
