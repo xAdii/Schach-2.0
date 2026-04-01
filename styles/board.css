@@ -10,6 +10,14 @@
 .field {
     width: 50px;
     height: 50px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.field img {
+    width: 45px;
+    height: 45px;
 }
 
 .white {

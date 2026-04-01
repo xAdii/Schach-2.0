@@ -6,7 +6,11 @@
         echo '<div class="row">';
         for ($j = 0; $j < 8; $j++) {
             $color = ($i + $j) % 2 === 0 ? 'white' : 'black';
-            echo '<div class="field ' . $color . '"></div>';
+            if ($i == 3) {
+                echo '<div class="field ' . $color . '"><img src="./images/placeholder.png" alt="Placeholder"></div>';
+            } else {
+                echo '<div class="field ' . $color . '"></div>';
+            }
         }
         echo '</div>';
     }
