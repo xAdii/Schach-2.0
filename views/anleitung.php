@@ -35,6 +35,6 @@
         <li>Remis: Unentschieden durch verschiedene Regeln (z.B. dreifache Stellungswiederholung, 50-Züge-Regel).</li>
     </ul>
 </section>
-<form action="../index.php" method="get" style="margin-top: 24px;">
-    <button type="submit">Zurück zur Startseite</button>
+<form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+    <button type="submit" name="nav" value="home">Zurück zur Startseite</button>
 </form>
