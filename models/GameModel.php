@@ -1,5 +1,5 @@
 <?php
-class BoardModel
+class GameModel
 {
     private $pdo;
     public function __construct($pdo)

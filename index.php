@@ -16,9 +16,13 @@ spl_autoload_register(function ($classname) {
 });
 
 $userModel = new UserModel($pdo);
-
 $userController = new UserController($userModel);
 $userController->handleRequest();
+
+$gameModel = new GameModel($pdo);
+$gameController = new GameController($gameModel);
+$gameController->handleRequest();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
