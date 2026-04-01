@@ -17,21 +17,21 @@ class UserModel
     // user löschen
     public function deleteUser($id)
     {
-        $stmt = $this->pdo->prepare("DELETE FROM user WHERE id = ?");
+        $stmt = $this->pdo->prepare("DELETE FROM user WHERE ID = ?");
         return $stmt->execute([$id]);
     }
 
     // user Passwort bearbeiten
     public function updateUserPassword($id, $password)
     {
-        $stmt = $this->pdo->prepare("UPDATE user SET password = ? WHERE id = ?");
+        $stmt = $this->pdo->prepare("UPDATE user SET password = ? WHERE ID = ?");
         return $stmt->execute([$password, $id]);
     }
 
     // user namen ändern
     public function updateUserName($id, $name)
     {
-        $stmt = $this->pdo->prepare("UPDATE user SET name = ? WHERE id = ?");
+        $stmt = $this->pdo->prepare("UPDATE user SET name = ? WHERE ID = ?");
         return $stmt->execute([$name, $id]);
     }
 
