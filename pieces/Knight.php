@@ -17,7 +17,7 @@ class Knight extends GenericPiece
   public function __construct($color, $position)
   {
     parent::__construct($color, $position);
-    $this->img = $color === 'black' ? './images/knight_black.png' : './images/knight_white.png';
+    $this->img = "./images/" . $color . "/knight.png";
   }
 
   public function getValidMoves($board)

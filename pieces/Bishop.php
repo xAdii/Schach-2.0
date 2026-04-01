@@ -23,7 +23,7 @@ class Bishop extends GenericPiece
   public function __construct($color, $position)
   {
     parent::__construct($color, $position);
-    $this->img = $color === 'black' ? './images/bishop_black.png' : './images/bishop_white.png';
+    $this->img = "./images/" . $color . "/bishop.png";
   }
 
   public function getValidMoves($board)

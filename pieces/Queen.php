@@ -65,7 +65,7 @@ class Queen extends GenericPiece
   public function __construct($color, $position)
   {
     parent::__construct($color, $position);
-    $this->img = $color === 'black' ? './images/queen_black.png' : './images/queen_white.png';
+    $this->img = "./images/" . $color . "/queen.png";
   }
 
   public function getValidMoves($board)

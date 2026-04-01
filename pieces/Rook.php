@@ -37,7 +37,7 @@ class Rook extends GenericPiece
   public function __construct($color, $position)
   {
     parent::__construct($color, $position);
-    $this->img = $color === 'black' ? './images/rook_black.png' : './images/rook_white.png';
+    $this->img = "./images/" . $color . "/rook.png";
   }
 
   public function getValidMoves($board)

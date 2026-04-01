@@ -10,7 +10,7 @@ class Pawn extends GenericPiece
   public function __construct($color, $position)
   {
     parent::__construct($color, $position);
-    $this->img = $color === 'black' ? './images/pawn_black.png' : './images/pawn_white.png';
+    $this->img = "./images/" . $color . "/pawn.png";
   }
 
   public function getValidMoves($board)

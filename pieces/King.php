@@ -17,7 +17,7 @@ class King extends GenericPiece
   public function __construct($color, $position)
   {
     parent::__construct($color, $position);
-    $this->img = $color === 'black' ? './images/king_black.png' : './images/king_white.png';
+    $this->img = "./images/" . $color . "/king.png";
   }
 
   public function getValidMoves($board)
