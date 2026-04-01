@@ -41,11 +41,12 @@ $userController->handleRequest();
         include './views/signup.php';
     } else if (isset($_POST['nav']) && $_POST['nav'] === 'login') {
         include './views/login.php';
-    }
-    else if (isset($_POST['nav']) && $_POST['nav'] === 'play') {
+    } else if (isset($_POST['nav']) && $_POST['nav'] === 'play') {
         include './views/play.php';
     } else if (isset($_POST['nav']) && $_POST['nav'] === 'dashboard') {
         include './views/dashboard.php';
+    } else if (isset($_POST['nav']) && $_POST['nav'] === 'anleitung') {
+        include './views/anleitung.php';
     } else {
         include './views/home.php';
     }
