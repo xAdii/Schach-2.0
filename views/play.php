@@ -9,8 +9,8 @@
         [],
         [],
         [],
-        [new Placeholder('white', [6, 0]), new Placeholder('white', [6, 1]), new Placeholder('white', [6, 2]), new Placeholder('white', [6, 3]), new Placeholder('white', [6, 4]), new Placeholder('white', [6, 5]), new Placeholder('white', [6, 6]), new Placeholder('white', [6, 7])],
-        []
+        [new Pawn('white', [6, 0]), new Pawn('white', [6, 1]), new Pawn('white', [6, 2]), new Pawn('white', [6, 3]), new Pawn('white', [6, 4]), new Pawn('white', [6, 5]), new Pawn('white', [6, 6]), new Pawn('white', [6, 7])],
+        [new Rook('white', [7, 0]), new Knight('white', [7, 1]), new Bishop('white', [7, 2]), new Queen('white', [7, 3]), new King('white', [7, 4]), new Bishop('white', [7, 5]), new Knight('white', [7, 6]), new Rook('white', [7, 7])]
     ];
 
     for ($i = 0; $i < 8; $i++) {
