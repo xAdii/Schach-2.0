@@ -1,4 +1,5 @@
 <h1>Schach Anleitung</h1>
+<?php include './modules/navigation.php'; ?>
 <section>
     <h2>Grundregeln</h2>
     <ul>
@@ -35,6 +36,3 @@
         <li>Remis: Unentschieden durch verschiedene Regeln (z.B. dreifache Stellungswiederholung, 50-Züge-Regel).</li>
     </ul>
 </section>
-<form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
-    <button type="submit" name="nav" value="home">Zurück zur Startseite</button>
-</form>
