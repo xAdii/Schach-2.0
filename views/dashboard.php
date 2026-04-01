@@ -14,6 +14,7 @@ $user = $_SESSION['user'] ?? null;
 <h2>Namen ändern</h2>
 <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
     <input type="hidden" name="action" value="userUpdateName">
+    <input type="hidden" name="nav" value="dashboard">
     <label for="username">Neuer Benutzername</label><br>
     <input type="text" id="username" name="username" value="<?= htmlspecialchars($user['name']) ?>" required>
     <br><br>
@@ -23,6 +24,7 @@ $user = $_SESSION['user'] ?? null;
 <h2>Passwort ändern</h2>
 <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
     <input type="hidden" name="action" value="userUpdatePassword">
+    <input type="hidden" name="nav" value="dashboard">
     <label for="password">Neues Passwort</label><br>
     <input type="password" id="password" name="password" required>
     <br><br>
@@ -32,11 +34,13 @@ $user = $_SESSION['user'] ?? null;
 <h2>Abmelden</h2>
 <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
     <input type="hidden" name="action" value="userLogout">
+    <input type="hidden" name="nav" value="dashboard">
     <button type="submit">Ausloggen</button>
 </form>
 
 <h2>Account löschen</h2>
 <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" onsubmit="return confirm('Möchtest du deinen Account wirklich löschen?');">
     <input type="hidden" name="action" value="userDelete">
+    <input type="hidden" name="nav" value="dashboard">
     <button type="submit">Account löschen</button>
 </form>
