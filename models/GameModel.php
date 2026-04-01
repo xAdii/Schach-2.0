@@ -7,7 +7,7 @@ class BoardModel
         $this->pdo = $pdo;
     }
 
-    public function insertBoard($player1, $player2) {
+    public function insertBoard($playerWhiteID, $playerBlackID) {
     }
 
     public function fetchBoard($boardID) {
