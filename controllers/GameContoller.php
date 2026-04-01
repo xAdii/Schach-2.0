@@ -2,7 +2,6 @@
 class GameController
 {
     private $gameModel;
-    private $board = [];
 
     public function __construct($gameModel)
     {
@@ -86,31 +85,44 @@ class GameController
             $boardID = $_POST['boardID'];
         }
 
-        $this->board = [];
+        unset($_SESSION['game']);
+
+        $_SESSION['game'] = [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ];
 
         $board = $this->gameModel->fetchBoard($boardID);
+        $_SESSION['game']['boardID'] = $board['ID'];
+        $_SESSION['game']['playerWhiteID'] = $board['playerWhiteID'];
+        $_SESSION['game']['playerBlackID'] = $board['playerBlackID'];
 
         $pieces = $this->gameModel->fetchPieces($boardID);
-
         foreach ($pieces as $piece) {
             switch ($piece['type']) {
                 case 'pawn':
-                    $this->board[$piece['position_y']][$piece['position_x']] = new Pawn($piece['color'], $piece['position_y'], $piece['position_x']);
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Pawn($piece['color'], $piece['position_y'], $piece['position_x']);
                     break;
                 case 'rook':
-                    $this->board[$piece['position_y']][$piece['position_x']] = new Rook($piece['color'], $piece['position_y'], $piece['position_x']);
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Rook($piece['color'], $piece['position_y'], $piece['position_x']);
                     break;
                 case 'knight':
-                    $this->board[$piece['position_y']][$piece['position_x']] = new Knight($piece['color'], $piece['position_y'], $piece['position_x']);
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Knight($piece['color'], $piece['position_y'], $piece['position_x']);
                     break;
                 case 'bishop':
-                    $this->board[$piece['position_y']][$piece['position_x']] = new Bishop($piece['color'], $piece['position_y'], $piece['position_x']);
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Bishop($piece['color'], $piece['position_y'], $piece['position_x']);
                     break;
                 case 'queen':
-                    $this->board[$piece['position_y']][$piece['position_x']] = new Queen($piece['color'], $piece['position_y'], $piece['position_x']);
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Queen($piece['color'], $piece['position_y'], $piece['position_x']);
                     break;
                 case 'king':
-                    $this->board[$piece['position_y']][$piece['position_x']] = new King($piece['color'], $piece['position_y'], $piece['position_x']);
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new King($piece['color'], $piece['position_y'], $piece['position_x']);
                     break;
             }
         }
