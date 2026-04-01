@@ -43,6 +43,8 @@
             <li>Remis: Unentschieden durch verschiedene Regeln (z.B. dreifache Stellungswiederholung, 50-Züge-Regel).</li>
         </ul>
     </section>
-    <a href="../index.php">Zurück zur Startseite</a>
+    <form action="../index.php" method="get" style="margin-top: 24px;">
+        <button type="submit">Zurück zur Startseite</button>
+    </form>
 </body>
 </html>
