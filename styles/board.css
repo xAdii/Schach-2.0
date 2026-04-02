@@ -55,6 +55,7 @@
 }
 .cell.selected .highlight {
     background-color: rgba(0, 0, 255, 0.7);
+    animation: pulse 1s infinite;
 }
 
 .cell form {
