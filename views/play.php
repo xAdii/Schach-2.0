@@ -1,6 +1,6 @@
 <h1>Play</h1>
 <?php include './modules/navigation.php';
-$boards = getUserGames();
+$boards = $gameController->getUserGames();
 ?>
 
 <h1>Spiele</h1>

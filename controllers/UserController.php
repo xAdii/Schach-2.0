@@ -108,7 +108,7 @@ class UserController
 
         // Set session
         $_SESSION['user'] = [
-            'id' => $user['id'],
+            'id' => $user['ID'],
             'name' => $user['name']
         ];
     }
@@ -120,7 +120,7 @@ class UserController
 
     private function handleUserDelete()
     {
-        $this->userModel->deleteUser($_SESSION['user']['id']);
+        $this->userModel->deleteUser($_SESSION['user']['ID']);
         unset($_SESSION['user']);
     }
 
@@ -139,7 +139,7 @@ class UserController
         if ($user) {
             $this->redirectWithError('usernameTaken');
         }
-        $this->userModel->updateUserName($_SESSION['user']['id'], $username);
+        $this->userModel->updateUserName($_SESSION['user']['ID'], $username);
 
         $_SESSION['user']['name'] = $username;
     }
@@ -156,7 +156,6 @@ class UserController
         // Encrypt password
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $this->userModel->updateUserPassword($_SESSION['user']['id'], $password_hash);
+        $this->userModel->updateUserPassword($_SESSION['user']['ID'], $password_hash);
     }
 }
-?>
