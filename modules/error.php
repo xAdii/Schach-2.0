@@ -17,4 +17,7 @@ if (isset($_GET['error'])) {
             break;
     }
 }
-echo '<p class="error">' . htmlspecialchars($errorMessage) . '</p>';
+
+if ($errorMessage !== '') {
+    echo '<p class="error">' . htmlspecialchars($errorMessage) . '</p>';
+}
