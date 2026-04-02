@@ -1,9 +1,9 @@
 # Schach 2.0
 
 Diese Webseite ist für Schach Entusiasten, die Schach mal anders Spielen wollen, mit neuen Regeln und Möglichkeiten das Spiel zu spielen.
-## Webseite (hier einen besseren Namn einfügen)
+## Webseite - Erste Schritte
 
-Wenn man das erste mal auf der Webseite ist hat man die Möglichkeit sich anzumelden. Das ist notwendig um Spiele spielen zu können. Anschließend kann man unter Spielen ein neues Spiel erstellen oder alte Spiele fortsetzen. Alle Spiele werden in einer Datenbank gespeichert.
+Wenn man das erste mal auf der Webseite ist hat man die Möglichkeit sich anzumelden. Das ist notwendig um Spiele spielen zu können, da sonst die Spiele nicht von der Datenbank abgerufen oder in der Datenbank eingetragen werden können. Anschließend kann man unter Spielen ein neues Spiel erstellen oder alte Spiele fortsetzen. Alle Spiele werden in einer Datenbank gespeichert.
 
 ## Spielanleitung
 
