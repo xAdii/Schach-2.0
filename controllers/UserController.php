@@ -63,6 +63,14 @@ class UserController
             $this->redirectWithError('emptyFields');
         }
 
+        if (trim($_POST['username']) === '' || preg_match('/\s/', $_POST['username'])) {
+            $this->redirectWithError('invalidUsername');
+        }
+
+        if (trim($_POST['password']) === '' || preg_match('/\s/', $_POST['password'])) {
+            $this->redirectWithError('invalidPassword');
+        }
+
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
 
@@ -136,7 +144,7 @@ class UserController
     private function handleUserUpdateName()
     {
         // Validate input
-        if (!isset($_POST['username']) || empty($_POST['username'])) {
+        if (!isset($_POST['username']) || empty($_POST['username']) || trim($_POST['username']) === '' || preg_match('/\s/', $_POST['username'])) {
             return;
         }
 
@@ -156,7 +164,8 @@ class UserController
     private function handleUserUpdatePassword()
     {
         // Validate input
-        if (!isset($_POST['password']) || empty($_POST['password'])) {
+        if (!isset($_POST['password']) || empty($_POST['password']) || trim($_POST['password']) === '' || preg_match('/\s/', $_POST['password'])) {
+            $this->redirectWithError('invalidPassword');
             return;
         }
 
