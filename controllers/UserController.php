@@ -77,6 +77,15 @@ class UserController
             // Create user
             $this->userModel->createUser($username, $password_hash);
         }
+
+        // Get user from database
+        $user = $this->userModel->fetchUser($username);
+
+        // Set session
+        $_SESSION['user'] = [
+            'ID' => $user['ID'],
+            'name' => $user['name']
+        ];
     }
 
     private function handleUserLogin()
