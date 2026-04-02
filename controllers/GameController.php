@@ -123,7 +123,7 @@ class GameController
             }
         }
 
-        header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=game');
+        header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=board');
         exit();
     }
 
