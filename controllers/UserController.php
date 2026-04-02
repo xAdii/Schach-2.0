@@ -63,6 +63,14 @@ class UserController
             $this->redirectWithError('emptyFields');
         }
 
+        if (trim($_POST['username']) === '' || preg_match('/\s/', $_POST['username'])) {
+            $this->redirectWithError('invalidUsername');
+        }
+
+        if (trim($_POST['password']) === '' || preg_match('/\s/', $_POST['password'])) {
+            $this->redirectWithError('invalidPassword');
+        }
+
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
 
@@ -77,6 +85,15 @@ class UserController
             // Create user
             $this->userModel->createUser($username, $password_hash);
         }
+
+        // Get user from database
+        $user = $this->userModel->fetchUser($username);
+
+        // Set session
+        $_SESSION['user'] = [
+            'ID' => $user['ID'],
+            'name' => $user['name']
+        ];
     }
 
     private function handleUserLogin()
@@ -127,7 +144,7 @@ class UserController
     private function handleUserUpdateName()
     {
         // Validate input
-        if (!isset($_POST['username']) || empty($_POST['username'])) {
+        if (!isset($_POST['username']) || empty($_POST['username']) || trim($_POST['username']) === '' || preg_match('/\s/', $_POST['username'])) {
             return;
         }
 
@@ -147,11 +164,24 @@ class UserController
     private function handleUserUpdatePassword()
     {
         // Validate input
-        if (!isset($_POST['password']) || empty($_POST['password'])) {
+        if (!isset($_POST['password']) || empty($_POST['password']) || trim($_POST['password']) === '' || preg_match('/\s/', $_POST['password'])) {
+            $this->redirectWithError('invalidPassword');
+            return;
+        }
+        if (!isset($_POST['old_password']) || empty($_POST['old_password'])) {
+            $this->redirectWithError('emptyFields');
             return;
         }
 
         $password = $_POST['password'] ?? '';
+        $old_password = $_POST['old_password'] ?? '';
+
+        // Check if old password is correct
+        $user = $this->userModel->fetchUser($_SESSION['user']['name']);
+        if (!password_verify($old_password, $user['password'])) {
+            $this->redirectWithError('wrongPassword');
+            return;
+        }
 
         // Encrypt password
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
