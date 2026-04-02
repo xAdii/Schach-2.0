@@ -168,8 +168,20 @@ class UserController
             $this->redirectWithError('invalidPassword');
             return;
         }
+        if (!isset($_POST['old_password']) || empty($_POST['old_password'])) {
+            $this->redirectWithError('emptyFields');
+            return;
+        }
 
         $password = $_POST['password'] ?? '';
+        $old_password = $_POST['old_password'] ?? '';
+
+        // Check if old password is correct
+        $user = $this->userModel->fetchUser($_SESSION['user']['name']);
+        if (!password_verify($old_password, $user['password'])) {
+            $this->redirectWithError('wrongPassword');
+            return;
+        }
 
         // Encrypt password
         $password_hash = password_hash($password, PASSWORD_DEFAULT);

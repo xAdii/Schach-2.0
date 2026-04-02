@@ -25,6 +25,8 @@ $user = $_SESSION['user'] ?? null;
 <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
     <input type="hidden" name="action" value="userUpdatePassword">
     <input type="hidden" name="nav" value="dashboard">
+    <label for="old_password">Altes Passwort</label><br>
+    <input type="password" id="old_password" name="old_password" required><br>    
     <label for="password">Neues Passwort</label><br>
     <input type="password" id="password" name="password" required>
     <br><br>
