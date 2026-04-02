@@ -15,7 +15,7 @@ $board = $_SESSION['board'] ?? null;
         echo '<div class="row">';
         for ($x = 0; $x < 8; $x++) {
             echo '<div class="cell ' . (($x + $y) % 2 === 0 ? 'white' : 'black') . '">';
-            if ($board[$y][$x]) {
+            if (isset($board[$y][$x]) && $board[$y][$x]) {
                 echo '<img src="' . $board[$y][$x]->getImg() . '" alt="">';
             }
             echo '</div>';
