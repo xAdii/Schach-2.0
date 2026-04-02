@@ -108,7 +108,7 @@ class UserController
 
         // Set session
         $_SESSION['user'] = [
-            'id' => $user['ID'],
+            'ID' => $user['ID'],
             'name' => $user['name']
         ];
     }
