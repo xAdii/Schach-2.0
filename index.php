@@ -40,9 +40,6 @@ $gameController->handleRequest();
 
 <body>
     <?php
-    if (isset($_SESSION['user'])) {
-        echo '<p>Angemeldet als: ' . htmlspecialchars($_SESSION['user']['name']) . '</p>';
-    }
     include './modules/error.php';
 
     include './modules/redirects.php';
