@@ -25,20 +25,24 @@
 }
 
 .cell .highlight {
-    width: 64px;
-    height: 64px;
+    width: 80%;
+    height: 80%;
 }
 
 .cell .highlight.valid {
-    background-color: rgba(0, 255, 0, 0.5);
+    background-color: rgba(0, 255, 0, 0.7);
 }
 
 .cell .highlight.capture {
-    background-color: rgba(255, 0, 0, 0.5);
+    background-color: rgba(255, 0, 0, 0.7);
 }
 
 .cell .highlight.blocked {
-    background-color: rgba(255, 255, 0, 0.5);
+    background-color: rgba(255, 255, 0, 0.7);
+}
+
+.cell .highlight.selected {
+    background-color: rgba(0, 0, 255, 0.7);
 }
 
 .cell form {

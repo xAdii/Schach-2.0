@@ -17,7 +17,8 @@ $board = $_SESSION['board'] ?? null;
                     <div class="highlight 
                     <?= isset($_SESSION['validMoves']) && in_array([$y, $x], $_SESSION['validMoves']) ? 'valid' : ''; ?>
                     <?= isset($_SESSION['captureMoves']) && in_array([$y, $x], $_SESSION['captureMoves']) ? 'capture' : ''; ?>
-                    <?= isset($_SESSION['blockedMoves']) && in_array([$y, $x], $_SESSION['blockedMoves']) ? 'blocked' : ''; ?>">
+                    <?= isset($_SESSION['blockedMoves']) && in_array([$y, $x], $_SESSION['blockedMoves']) ? 'blocked' : ''; ?>
+                    <?= isset($_SESSION['selectedPiece']) && $_SESSION['selectedPiece'] === [$y, $x] ? 'selected' : ''; ?>">
                         <?php if (isset($board[$y][$x]) && $board[$y][$x]) : ?>
                             <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
                                 <input type="hidden" name="action" value="selectCell">

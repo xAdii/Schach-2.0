@@ -155,6 +155,7 @@ class GameController
         $_SESSION['validMoves'] = $validMoves['validMoves'];
         $_SESSION['captureMoves'] = $validMoves['captureMoves'];
         $_SESSION['blockedMoves'] = $validMoves['blockedMoves'];
+        $_SESSION['selectedPiece'] = $piece->getPosition();
 
         header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=board');
         exit();
