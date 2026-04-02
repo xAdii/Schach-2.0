@@ -10,8 +10,8 @@ if (isset($_POST['nav'])) {
         case 'play':
             include './views/play.php';
             break;
-        case 'game':
-            include './views/game.php';
+        case 'board':
+            include './views/board.php';
             break;
         case 'dashboard':
             include './views/dashboard.php';
@@ -34,8 +34,8 @@ if (isset($_POST['nav'])) {
         case 'play':
             include './views/play.php';
             break;
-        case 'game':
-            include './views/game.php';
+        case 'board':
+            include './views/board.php';
             break;
         case 'dashboard':
             include './views/dashboard.php';
