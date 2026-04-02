@@ -37,15 +37,15 @@ class GameController
 
     public function handleCreateGame()
     {
-        if (!isset($_SESSION['user']['id']) || empty($_SESSION['user']['id'])) {
+        if (!isset($_SESSION['user']['ID']) || empty($_SESSION['user']['ID'])) {
             return;
         }
 
-        $userID = $_SESSION['user']['id'] ?? null;
+        $userID = $_SESSION['user']['ID'] ?? null;
 
         $this->gameModel->insertBoard($userID, $userID);
 
-        $boardID = $this->gameModel->fetchMaxBoardID();
+        $boardID = $this->gameModel->fetchMaxBoardID()['ID'];
 
         $this->gameModel->insertPiece($boardID, "rook", "white", 0, 0);
         $this->gameModel->insertPiece($boardID, "knight", "white", 0, 1);
@@ -79,10 +79,7 @@ class GameController
     public function handleJoinGame($boardID = null)
     {
         if ($boardID === null) {
-            if (!isset($_POST['boardID']) || empty($_POST['boardID'])) {
-                return;
-            }
-            $boardID = $_POST['boardID'];
+            $boardID = $_POST['boardID'] ?? null;
         }
 
         unset($_SESSION['game']);
@@ -130,11 +127,11 @@ class GameController
 
     public function getUserGames()
     {
-        if (!isset($_SESSION['user']['id']) || empty($_SESSION['user']['id'])) {
+        if (!isset($_SESSION['user']['ID']) || empty($_SESSION['user']['ID'])) {
             return;
         }
 
-        $userID = $_SESSION['user']['id'] ?? null;
+        $userID = $_SESSION['user']['ID'] ?? null;
 
         $games = $this->gameModel->fetchBoardsByUserID($userID);
 
