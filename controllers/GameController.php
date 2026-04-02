@@ -37,11 +37,11 @@ class GameController
 
     public function handleCreateGame()
     {
-        if (!isset($_SESSION['user']['id']) || empty($_SESSION['user']['id'])) {
+        if (!isset($_SESSION['user']['ID']) || empty($_SESSION['user']['ID'])) {
             return;
         }
 
-        $userID = $_SESSION['user']['id'] ?? null;
+        $userID = $_SESSION['user']['ID'] ?? null;
 
         $this->gameModel->insertBoard($userID, $userID);
 
@@ -130,11 +130,11 @@ class GameController
 
     public function getUserGames()
     {
-        if (!isset($_SESSION['user']['id']) || empty($_SESSION['user']['id'])) {
+        if (!isset($_SESSION['user']['ID']) || empty($_SESSION['user']['ID'])) {
             return;
         }
 
-        $userID = $_SESSION['user']['id'] ?? null;
+        $userID = $_SESSION['user']['ID'] ?? null;
 
         $games = $this->gameModel->fetchBoardsByUserID($userID);
 
