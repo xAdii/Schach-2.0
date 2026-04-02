@@ -1,10 +1,4 @@
 <?php
-// Session starten
-session_start();
-
-// DB config laden
-require_once './db_config.php';
-
 // Autoloader für Models, Controllers und Pieces
 spl_autoload_register(function ($classname) {
     $paths = ['models/', 'controllers/', 'pieces/'];
@@ -17,6 +11,12 @@ spl_autoload_register(function ($classname) {
         }
     }
 });
+
+// Session starten
+session_start();
+
+// DB config laden
+require_once './db_config.php';
 
 $userModel = new UserModel($pdo);
 $userController = new UserController($userModel);

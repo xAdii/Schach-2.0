@@ -37,10 +37,6 @@ class GameController
 
     public function handleCreateGame()
     {
-        if (!isset($_SESSION['user']['ID']) || empty($_SESSION['user']['ID'])) {
-            return;
-        }
-
         $userID = $_SESSION['user']['ID'] ?? null;
 
         $this->gameModel->insertBoard($userID, $userID);
@@ -82,9 +78,9 @@ class GameController
             $boardID = $_POST['boardID'] ?? null;
         }
 
-        unset($_SESSION['game']);
+        unset($_SESSION['board']);
 
-        $_SESSION['game'] = [
+        $_SESSION['board'] = [
             [],
             [],
             [],
@@ -96,9 +92,9 @@ class GameController
         ];
 
         $board = $this->gameModel->fetchBoard($boardID);
-        $_SESSION['game']['boardID'] = $board['ID'];
-        $_SESSION['game']['playerWhiteID'] = $board['playerWhiteID'];
-        $_SESSION['game']['playerBlackID'] = $board['playerBlackID'];
+        $_SESSION['board']['boardID'] = $board['ID'];
+        $_SESSION['board']['playerWhiteID'] = $board['playerWhiteID'];
+        $_SESSION['board']['playerBlackID'] = $board['playerBlackID'];
 
         $pieces = $this->gameModel->fetchPieces($boardID);
         foreach ($pieces as $piece) {
@@ -123,6 +119,9 @@ class GameController
                     break;
             }
         }
+
+        header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=game');
+        exit();
     }
 
     public function getUserGames()
