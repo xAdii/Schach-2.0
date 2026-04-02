@@ -8,10 +8,6 @@ $boards = $gameController->getUserGames();
     <input type="hidden" name="action" value="createGame">
     <button type="submit">Neues Spiel erstellen</button>
 </form>
-<form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-    <input type="hidden" name="nav" value="play">
-    <button type="submit">Alte Spiele anzeigen</button>
-</form>
 
 <div>
     <?php foreach ($boards as $board) : ?>
