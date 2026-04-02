@@ -22,7 +22,7 @@ class GameModel
 
     public function fetchBoardsByUserID($userID)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM boards WHERE playerWhiteID = ? OR playerBlackID = ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM boards WHERE playerWhiteID = ? OR playerBlackID = ? ORDER BY ID DESC");
         $stmt->execute([$userID, $userID]);
         return $stmt->fetchAll();
     }
