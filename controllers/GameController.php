@@ -75,6 +75,9 @@ class GameController
             $this->gameModel->insertPiece($boardID, "pawn", "black", 1, $i);
         }
 
+        // For testing purposes only:
+        $this->gameModel->insertPiece($boardID, "queen", "white", 4, 4);
+
         $this->handleJoinGame($boardID);
     }
 
@@ -149,7 +152,9 @@ class GameController
 
         $validMoves = $piece->getValidMoves($_SESSION['board']);
 
-        $_SESSION['validMoves'] = $validMoves;
+        $_SESSION['validMoves'] = $validMoves['validMoves'];
+        $_SESSION['captureMoves'] = $validMoves['captureMoves'];
+        $_SESSION['blockedMoves'] = $validMoves['blockedMoves'];
 
         header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=board');
         exit();

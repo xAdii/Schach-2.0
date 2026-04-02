@@ -34,6 +34,8 @@ class GenericPiece
     public function getValidMoves()
     {
         $validMoves = [];
+        $captureMoves = [];
+        $blockedMoves = [];
 
         foreach ($this->moveSet as $direction) {
             foreach ($direction as $move) {
@@ -50,16 +52,13 @@ class GenericPiece
                     continue 2;
                 }
 
-                // Opponent piece check
+                // Piece check
                 if (isset($_SESSION['board'][$newY][$newX])) {
                     if ($_SESSION['board'][$newY][$newX]->getColor() !== $this->color) {
-                        array_push($validMoves, [$newY, $newX]);
+                        array_push($captureMoves, [$newY, $newX]);
+                    } else {
+                        array_push($blockedMoves, [$newY, $newX]);
                     }
-                    continue 2;
-                }
-
-                // Own piece check
-                if (isset($_SESSION['board'][$newY][$newX]) && $_SESSION['board'][$newY][$newX]->getColor() === $this->color) {
                     continue 2;
                 }
 
@@ -67,7 +66,7 @@ class GenericPiece
             }
         }
 
-        return $validMoves;
+        return ['validMoves' => $validMoves, 'captureMoves' => $captureMoves, 'blockedMoves' => $blockedMoves];
     }
 
     protected function checkOutOfBounds($y, $x)
