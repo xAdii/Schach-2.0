@@ -29,19 +29,31 @@
     height: 80%;
 }
 
-.cell .highlight.valid {
+.cell.valid {
+    cursor: pointer;
+}
+.cell.valid .highlight {
     background-color: rgba(0, 255, 0, 0.7);
 }
 
-.cell .highlight.capture {
+.cell.capture {
+    cursor: pointer;
+}
+.cell.capture .highlight {
     background-color: rgba(255, 0, 0, 0.7);
 }
 
-.cell .highlight.blocked {
+.cell.blocked {
+    cursor: not-allowed;
+}
+.cell.blocked .highlight {
     background-color: rgba(255, 255, 0, 0.7);
 }
 
-.cell .highlight.selected {
+.cell.selected {
+    cursor: pointer;
+}
+.cell.selected .highlight {
     background-color: rgba(0, 0, 255, 0.7);
 }
 

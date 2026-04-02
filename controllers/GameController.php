@@ -148,6 +148,16 @@ class GameController
             return;
         }
 
+        if ($_SESSION['selectedPiece'] === [intval($y), intval($x)]) {
+            unset($_SESSION['validMoves']);
+            unset($_SESSION['captureMoves']);
+            unset($_SESSION['blockedMoves']);
+            unset($_SESSION['selectedPiece']);
+
+            header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=board');
+            exit();
+        }
+
         $piece = $_SESSION['board'][$y][$x];
 
         $validMoves = $piece->getValidMoves($_SESSION['board']);
