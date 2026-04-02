@@ -35,6 +35,9 @@ class GameController
             case 'deleteGame':
                 $this->handleDeleteGame();
                 break;
+            case 'selectCell':
+                $this->handleSelectCell();
+                break;
         }
     }
 
@@ -46,30 +49,30 @@ class GameController
 
         $boardID = $this->gameModel->fetchMaxBoardID()['ID'];
 
-        $this->gameModel->insertPiece($boardID, "rook", "white", 0, 0);
-        $this->gameModel->insertPiece($boardID, "knight", "white", 0, 1);
-        $this->gameModel->insertPiece($boardID, "bishop", "white", 0, 2);
-        $this->gameModel->insertPiece($boardID, "queen", "white", 0, 3);
-        $this->gameModel->insertPiece($boardID, "king", "white", 0, 4);
-        $this->gameModel->insertPiece($boardID, "bishop", "white", 0, 5);
-        $this->gameModel->insertPiece($boardID, "knight", "white", 0, 6);
-        $this->gameModel->insertPiece($boardID, "rook", "white", 0, 7);
+        $this->gameModel->insertPiece($boardID, "rook", "white", 7, 0);
+        $this->gameModel->insertPiece($boardID, "knight", "white", 7, 1);
+        $this->gameModel->insertPiece($boardID, "bishop", "white", 7, 2);
+        $this->gameModel->insertPiece($boardID, "queen", "white", 7, 3);
+        $this->gameModel->insertPiece($boardID, "king", "white", 7, 4);
+        $this->gameModel->insertPiece($boardID, "bishop", "white", 7, 5);
+        $this->gameModel->insertPiece($boardID, "knight", "white", 7, 6);
+        $this->gameModel->insertPiece($boardID, "rook", "white", 7, 7);
 
         for ($i = 0; $i < 8; $i++) {
-            $this->gameModel->insertPiece($boardID, "pawn", "white", 1, $i);
+            $this->gameModel->insertPiece($boardID, "pawn", "white", 6, $i);
         }
 
-        $this->gameModel->insertPiece($boardID, "rook", "black", 7, 0);
-        $this->gameModel->insertPiece($boardID, "knight", "black", 7, 1);
-        $this->gameModel->insertPiece($boardID, "bishop", "black", 7, 2);
-        $this->gameModel->insertPiece($boardID, "queen", "black", 7, 3);
-        $this->gameModel->insertPiece($boardID, "king", "black", 7, 4);
-        $this->gameModel->insertPiece($boardID, "bishop", "black", 7, 5);
-        $this->gameModel->insertPiece($boardID, "knight", "black", 7, 6);
-        $this->gameModel->insertPiece($boardID, "rook", "black", 7, 7);
+        $this->gameModel->insertPiece($boardID, "rook", "black", 0, 0);
+        $this->gameModel->insertPiece($boardID, "knight", "black", 0, 1);
+        $this->gameModel->insertPiece($boardID, "bishop", "black", 0, 2);
+        $this->gameModel->insertPiece($boardID, "queen", "black", 0, 3);
+        $this->gameModel->insertPiece($boardID, "king", "black", 0, 4);
+        $this->gameModel->insertPiece($boardID, "bishop", "black", 0, 5);
+        $this->gameModel->insertPiece($boardID, "knight", "black", 0, 6);
+        $this->gameModel->insertPiece($boardID, "rook", "black", 0, 7);
 
         for ($i = 0; $i < 8; $i++) {
-            $this->gameModel->insertPiece($boardID, "pawn", "black", 6, $i);
+            $this->gameModel->insertPiece($boardID, "pawn", "black", 1, $i);
         }
 
         $this->handleJoinGame($boardID);
@@ -82,6 +85,8 @@ class GameController
         }
 
         unset($_SESSION['board']);
+
+        unset($_SESSION['validMoves']);
 
         $_SESSION['board'] = [
             [],
@@ -122,6 +127,29 @@ class GameController
                     break;
             }
         }
+
+        header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=board');
+        exit();
+    }
+
+    public function handleSelectCell()
+    {
+        $y = $_POST['y'] ?? null;
+        $x = $_POST['x'] ?? null;
+
+        if ($y === null || $x === null) {
+            return;
+        }
+
+        if (!isset($_SESSION['board'][$y][$x]) || !$_SESSION['board'][$y][$x]) {
+            return;
+        }
+
+        $piece = $_SESSION['board'][$y][$x];
+
+        $validMoves = $piece->getValidMoves($_SESSION['board']);
+
+        $_SESSION['validMoves'] = $validMoves;
 
         header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=board');
         exit();

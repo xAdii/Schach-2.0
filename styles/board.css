@@ -11,15 +11,25 @@
 .cell {
     width: 70px;
     height: 70px;
+}
+
+.cell.highlight {
+    background-color: greenyellow;
+    cursor: pointer;
+}
+
+.cell form {
     align-items: center;
     justify-content: center;
     display: flex;
+    margin: 0;
 }
 
 .cell img {
     width: 64px;
     height: 64px;
     image-rendering: pixelated;
+    cursor: pointer;
 }
 
 .white {

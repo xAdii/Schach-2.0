@@ -21,24 +21,57 @@ class GenericPiece
         return $this->img;
     }
 
-    public function getValidMoves($board)
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    public function getPosition()
+    {
+        return [$this->position_y, $this->position_x];
+    }
+
+    public function getValidMoves()
     {
         $validMoves = [];
 
-        foreach ($this->moveSet as $move) {
-            $newPosition = [
-                $this->position_y + $move[0],
-                $this->position_x + $move[1]
-            ];
+        foreach ($this->moveSet as $direction) {
+            foreach ($direction as $move) {
+                if ($this->color === 'black') {
+                    $move[0] = -$move[0];
+                    $move[1] = -$move[1];
+                }
 
-            if ($newPosition[0] < 0 || $newPosition[0] > 7 || $newPosition[1] < 0 || $newPosition[1] > 7) {
-                continue;
+                $newY = $this->position_y + $move[0];
+                $newX = $this->position_x + $move[1];
+
+                // Out of bounds check
+                if ($this->checkOutOfBounds($newY, $newX)) {
+                    continue 2;
+                }
+
+                // Opponent piece check
+                if (isset($_SESSION['board'][$newY][$newX])) {
+                    if ($_SESSION['board'][$newY][$newX]->getColor() !== $this->color) {
+                        array_push($validMoves, [$newY, $newX]);
+                    }
+                    continue 2;
+                }
+
+                // Own piece check
+                if (isset($_SESSION['board'][$newY][$newX]) && $_SESSION['board'][$newY][$newX]->getColor() === $this->color) {
+                    continue 2;
+                }
+
+                array_push($validMoves, [$newY, $newX]);
             }
-
-            array_push($validMoves, $move);
         }
+
         return $validMoves;
     }
 
-    public function move($board, $newPosition) {}
+    protected function checkOutOfBounds($y, $x)
+    {
+        return $y < 0 || $y > 7 || $x < 0 || $x > 7;
+    }
 }
