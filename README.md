@@ -13,6 +13,6 @@ Das Spiel Statet nun und weiß beginnt. Nun hat der Spieler die Wahl, ob er eine
 
 ## Wie bekommt man Punkte?
 
-Die Punkte erhält man, indem man Fiuren des Gegners schlägt oder eigene Figuren geschlagen werden. hierbei idt die Punktebelohnung abhängig von der geschlagenen Figur. 
+Die Punkte erhält man, indem man Fiuren des Gegners schlägt oder eigene Figuren geschlagen werden. Hierbei ist die Punktebelohnung abhängig von der geschlagenen Figur. 
 
 Die Person, die eine Figur verliert erhält die doppelte Anzahl an Punkten, als die Person, welche die Figur schlägt um Vorteilen vorzubeugen und das Spiel spannender zu gestalten.
