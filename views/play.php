@@ -19,6 +19,7 @@ $boards = $gameController->getUserGames();
                 <input type="hidden" name="nav" value="play">
                 <input type="hidden" name="boardID" value="<?= $board['ID'] ?>">
                 <button type="submit" name="action" value="joinGame">Beitreten</button>
+                <button type="submit" name="action" value="deleteGame">Löschen</button>
             </form>
 
         </div>

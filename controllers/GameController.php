@@ -32,6 +32,9 @@ class GameController
             case 'joinGame':
                 $this->handleJoinGame();
                 break;
+            case 'deleteGame':
+                $this->handleDeleteGame();
+                break;
         }
     }
 
@@ -121,6 +124,17 @@ class GameController
         }
 
         header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=game');
+        exit();
+    }
+
+    public function handleDeleteGame()
+    {
+        $boardID = $_POST['boardID'] ?? null;
+
+        $this->gameModel->deletePiecesByBoardID($boardID);
+        $this->gameModel->deleteBoard($boardID);
+
+        header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=play');
         exit();
     }
 
