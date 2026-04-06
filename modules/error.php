@@ -15,6 +15,12 @@ if (isset($_GET['error'])) {
         case 'wrongPassword':
             $errorMessage = 'Passwort nicht korrekt.';
             break;
+        case 'invalidUsername':
+            $errorMessage = 'Ungültiger Benutzername. Keine Leerzeichen erlaubt.';
+            break;
+        case 'invalidPassword':
+            $errorMessage = 'Ungültiges Passwort. Keine Leerzeichen erlaubt.';
+            break;
     }
 }
 
