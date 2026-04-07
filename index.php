@@ -19,10 +19,14 @@ session_start();
 require_once './db_config.php';
 
 // Falls SQL Skript vorhanden, ausführen
-/*if (file_exists('schach_20.sql')) {
+if (file_exists('drop_tables.sql')) {
+    $sql = file_get_contents('drop_tables.sql');
+    $pdo->exec($sql);
+}
+if (file_exists('schach_20.sql')) {
     $sql = file_get_contents('schach_20.sql');
     $pdo->exec($sql);
-}*/
+}
 
 $userModel = new UserModel($pdo);
 $userController = new UserController($userModel);
