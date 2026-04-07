@@ -46,6 +46,12 @@ class GameModel
         return $stmt->execute([$boardID]);
     }
 
+    public function deletePieceByID($pieceID)
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM pieces WHERE ID = ?");
+        return $stmt->execute([$pieceID]);
+    }
+
     public function insertPiece($boardID, $type, $color, $position_y, $position_x)
     {
         $stmt = $this->pdo->prepare("INSERT INTO pieces (boardID, type, color, position_y, position_x) VALUES (?, ?, ?, ?, ?)");
@@ -57,5 +63,18 @@ class GameModel
         $stmt = $this->pdo->prepare("SELECT * FROM pieces WHERE boardID = ?");
         $stmt->execute([$boardID]);
         return $stmt->fetchAll();
+    }
+
+    public function fetchPieceByPosition($boardID, $position_y, $position_x)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM pieces WHERE boardID = ? AND position_y = ? AND position_x = ?");
+        $stmt->execute([$boardID, $position_y, $position_x]);
+        return $stmt->fetch();
+    }
+
+    public function updatePiecePosition($boardID, $old_y, $old_x, $position_y, $position_x)
+    {
+        $stmt = $this->pdo->prepare("UPDATE pieces SET position_y = ?, position_x = ? WHERE boardID = ? AND position_y = ? AND position_x = ?");
+        return $stmt->execute([$position_y, $position_x, $boardID, $old_y, $old_x]);
     }
 }

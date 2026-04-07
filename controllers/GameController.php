@@ -38,6 +38,12 @@ class GameController
             case 'selectCell':
                 $this->handleSelectCell();
                 break;
+            case 'movePiece':
+                $this->handleMovePiece();
+                break;
+            case 'capturePiece':
+                $this->handleCapturePiece();
+                break;
         }
     }
 
@@ -88,8 +94,10 @@ class GameController
         }
 
         unset($_SESSION['board']);
-
         unset($_SESSION['validMoves']);
+        unset($_SESSION['captureMoves']);
+        unset($_SESSION['blockedMoves']);
+        unset($_SESSION['selectedPiece']);
 
         $_SESSION['board'] = [
             [],
@@ -166,6 +174,91 @@ class GameController
         $_SESSION['captureMoves'] = $validMoves['captureMoves'];
         $_SESSION['blockedMoves'] = $validMoves['blockedMoves'];
         $_SESSION['selectedPiece'] = $piece->getPosition();
+
+        header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=board');
+        exit();
+    }
+
+    public function handleMovePiece()
+    {
+        $y = $_POST['y'] ?? null;
+        $x = $_POST['x'] ?? null;
+
+        if ($y === null || $x === null) {
+            return;
+        }
+
+        // Check if a piece is selected
+        if (!isset($_SESSION['selectedPiece']) || !$_SESSION['selectedPiece']) {
+            return;
+        }
+
+        $selectedY = $_SESSION['selectedPiece'][0];
+        $selectedX = $_SESSION['selectedPiece'][1];
+
+        // Check if the move is valid
+        if (!isset($_SESSION['validMoves']) || !in_array([$y, $x], $_SESSION['validMoves'])) {
+            return;
+        }
+
+        // Update the piece position in the database
+        $boardID = $_SESSION['board']['boardID'];
+        $this->gameModel->updatePiecePosition($boardID, $selectedY, $selectedX, $y, $x);
+
+        // Move the piece in the session
+        $_SESSION['board'][$y][$x] = $_SESSION['board'][$selectedY][$selectedX];
+        $_SESSION['board'][$y][$x]->setPosition($y, $x);
+        $_SESSION['board'][$selectedY][$selectedX] = null;
+
+        unset($_SESSION['validMoves']);
+        unset($_SESSION['captureMoves']);
+        unset($_SESSION['blockedMoves']);
+        unset($_SESSION['selectedPiece']);
+
+        header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=board');
+        exit();
+    }
+
+    public function handleCapturePiece()
+    {
+        $y = $_POST['y'] ?? null;
+        $x = $_POST['x'] ?? null;
+
+        if ($y === null || $x === null) {
+            return;
+        }
+
+        // Check if a piece is selected
+        if (!isset($_SESSION['selectedPiece']) || !$_SESSION['selectedPiece']) {
+            return;
+        }
+
+        $selectedY = $_SESSION['selectedPiece'][0];
+        $selectedX = $_SESSION['selectedPiece'][1];
+
+        // Check if the capture move is valid
+        if (!isset($_SESSION['captureMoves']) || !in_array([$y, $x], $_SESSION['captureMoves'])) {
+            return;
+        }
+
+        // Delete captured piece from the database
+        $boardID = $_SESSION['board']['boardID'];
+        $pieceID = $this->gameModel->fetchPieceByPosition($boardID, $y, $x)['ID'];
+        $this->gameModel->deletePieceByID($pieceID);
+
+        // Update the piece position in the database
+        $boardID = $_SESSION['board']['boardID'];
+        $this->gameModel->updatePiecePosition($boardID, $selectedY, $selectedX, $y, $x);
+
+        // Capture the piece in the session
+        $_SESSION['board'][$y][$x] = $_SESSION['board'][$selectedY][$selectedX];
+        $_SESSION['board'][$y][$x]->setPosition($y, $x);
+        $_SESSION['board'][$selectedY][$selectedX] = null;
+
+        unset($_SESSION['validMoves']);
+        unset($_SESSION['captureMoves']);
+        unset($_SESSION['blockedMoves']);
+        unset($_SESSION['selectedPiece']);
 
         header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=board');
         exit();
