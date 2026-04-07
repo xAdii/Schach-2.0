@@ -24,36 +24,39 @@
     background-color: #2f2f2f;
 }
 
-.cell .highlight {
+.cell .highlight-overlay {
     width: 80%;
     height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cell.valid {
     cursor: pointer;
 }
-.cell.valid .highlight {
+.cell.valid .highlight-overlay {
     background-color: rgba(0, 255, 0, 0.7);
 }
 
 .cell.capture {
     cursor: pointer;
 }
-.cell.capture .highlight {
+.cell.capture .highlight-overlay {
     background-color: rgba(255, 0, 0, 0.7);
 }
 
 .cell.blocked {
     cursor: not-allowed;
 }
-.cell.blocked .highlight {
+.cell.blocked .highlight-overlay {
     background-color: rgba(255, 255, 0, 0.7);
 }
 
 .cell.selected {
     cursor: pointer;
 }
-.cell.selected .highlight {
+.cell.selected .highlight-overlay {
     background-color: rgba(0, 0, 255, 0.7);
     animation: pulse 1s infinite;
 }

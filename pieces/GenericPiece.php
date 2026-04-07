@@ -31,6 +31,12 @@ class GenericPiece
         return [$this->position_y, $this->position_x];
     }
 
+    public function setPosition($y, $x)
+    {
+        $this->position_y = intval($y);
+        $this->position_x = intval($x);
+    }
+
     public function getValidMoves()
     {
         $validMoves = [];
