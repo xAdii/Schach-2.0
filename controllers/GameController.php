@@ -76,7 +76,7 @@ class GameController
         }
 
         // For testing purposes only:
-        $this->gameModel->insertPiece($boardID, "gazelle", "black", 4, 4);
+        $this->gameModel->insertPiece($boardID, "gazelle", "white", 4, 4);
 
         $this->handleJoinGame($boardID);
     }
