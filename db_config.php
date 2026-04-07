@@ -1,10 +1,22 @@
 <?php
-$config = [
-    'host' => 'localhost',
-    'username' => 'schach_20',
-    'password' => '',
-    'database' => 'schach_20'
-];
+$config = [];
+
+if ($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.1' || $_SERVER['HTTP_HOST'] === '::1') {
+    $config = [
+        'host' => 'localhost',
+        'username' => 'schach_20',
+        'password' => '',
+        'database' => 'schach_20'
+    ];
+} else {
+    $config = [
+        'host' => 'rdbms.strato.de',
+        'username' => 'dbu3396043',
+        'password' => '%43fT(h3Drdjzv$%',
+        'database' => 'dbs14903908'
+    ];
+}
+
 
 $options = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
