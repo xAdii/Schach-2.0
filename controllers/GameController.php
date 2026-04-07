@@ -76,7 +76,7 @@ class GameController
         }
 
         // For testing purposes only:
-        $this->gameModel->insertPiece($boardID, "queen", "white", 4, 4);
+        $this->gameModel->insertPiece($boardID, "gazelle", "black", 4, 4);
 
         $this->handleJoinGame($boardID);
     }
@@ -127,6 +127,9 @@ class GameController
                     break;
                 case 'king':
                     $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new King($piece['color'], $piece['position_y'], $piece['position_x']);
+                    break;
+                case 'gazelle':
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Gazelle($piece['color'], $piece['position_y'], $piece['position_x']);
                     break;
             }
         }
