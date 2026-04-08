@@ -7,7 +7,9 @@ $emptyBoards = $gameController->getEmptyGames();
 <h1>Spiele</h1>
 <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
     <input type="hidden" name="nav" value="play">
-    <button type="submit" name="action" value="createGame" class="create_new_game">Neues Spiel erstellen</button>
+    <input type="hidden" name="action" value="createGame">
+    <button type="submit" name="gameType" value="local" class="create_new_game">Lokales Spiel erstellen</button>
+    <button type="submit" name="gameType" value="public" class="create_new_game">Öffentliches Spiel erstellen</button>
 </form>
 
 <div class="flex-parent">

@@ -51,15 +51,22 @@ class GameController
     {
         $userID = $_SESSION['user']['ID'] ?? null;
 
-        // Zufällig Farbe zuweisen
-        $colors = ['white', 'black'];
-        $assignedColor = $colors[array_rand($colors)];
+        // Check if game is of type local or public
+        $gameType = $_POST['gameType'] ?? null;
 
-        if ($assignedColor === 'white') {
-            $playerWhiteID = $userID;
-            $playerBlackID = null;
+        if ($gameType === 'public') {
+            $colors = ['white', 'black'];
+            $assignedColor = $colors[array_rand($colors)];
+
+            if ($assignedColor === 'white') {
+                $playerWhiteID = $userID;
+                $playerBlackID = null;
+            } else {
+                $playerWhiteID = null;
+                $playerBlackID = $userID;
+            }
         } else {
-            $playerWhiteID = null;
+            $playerWhiteID = $userID;
             $playerBlackID = $userID;
         }
 
