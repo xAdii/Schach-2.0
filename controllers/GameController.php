@@ -195,6 +195,8 @@ class GameController
     public function syncBoard() {
         $boardID = $_SESSION['board']['boardID'] ?? null;
 
+        unset($_SESSION['board']);
+
         $_SESSION['board'] = [
             [],
             [],
