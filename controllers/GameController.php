@@ -152,6 +152,10 @@ class GameController
 
     public function handleSelectCell()
     {
+        if (!$this->checkPlayersTurn()) {
+            return;
+        }
+
         $y = $_POST['y'] ?? null;
         $x = $_POST['x'] ?? null;
 
@@ -188,6 +192,10 @@ class GameController
 
     public function handleMovePiece()
     {
+        if (!$this->checkPlayersTurn()) {
+            return;
+        }
+
         $y = $_POST['y'] ?? null;
         $x = $_POST['x'] ?? null;
 
@@ -212,6 +220,11 @@ class GameController
         $boardID = $_SESSION['board']['boardID'];
         $this->gameModel->updatePiecePosition($boardID, $selectedY, $selectedX, $y, $x);
 
+        // Update turn in the database
+        $turn = $this->gameModel->getBoardTurn($boardID);
+        $newTurn = ($turn === 'white') ? 'black' : 'white';
+        $this->gameModel->setBoardTurn($boardID, $newTurn);
+
         // Move the piece in the session
         $_SESSION['board'][$y][$x] = $_SESSION['board'][$selectedY][$selectedX];
         $_SESSION['board'][$y][$x]->setPosition($y, $x);
@@ -228,6 +241,10 @@ class GameController
 
     public function handleCapturePiece()
     {
+        if (!$this->checkPlayersTurn()) {
+            return;
+        }
+
         $y = $_POST['y'] ?? null;
         $x = $_POST['x'] ?? null;
 
@@ -293,5 +310,41 @@ class GameController
         $games = $this->gameModel->fetchBoardsByUserID($userID);
 
         return $games;
+    }
+
+    public function checkPlayersTurn()
+    {
+        if (!isset($_SESSION['user']['ID']) || empty($_SESSION['user']['ID'])) {
+            return false;
+        }
+
+        if (!isset($_SESSION['board']['boardID']) || empty($_SESSION['board']['boardID'])) {
+            return false;
+        }
+
+        $userID = $_SESSION['user']['ID'] ?? null;
+        $boardID = $_SESSION['board']['boardID'] ?? null;
+
+        $board = $this->gameModel->fetchBoard($boardID);
+        $turn = $board['turn'];
+
+        if (($turn === 'white' && $userID === $board['playerWhiteID']) || ($turn === 'black' && $userID === $board['playerBlackID'])) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getBoardTurn()
+    {
+        if (!isset($_SESSION['board']['boardID']) || empty($_SESSION['board']['boardID'])) {
+            return;
+        }
+
+        $boardID = $_SESSION['board']['boardID'] ?? null;
+
+        $turn = $this->gameModel->getBoardTurn($boardID);
+
+        return $turn;
     }
 }

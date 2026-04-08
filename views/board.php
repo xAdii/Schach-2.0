@@ -19,16 +19,18 @@ $board = $_SESSION['board'] ?? null;
     <?php endfor; ?>
 </div>
 
-<script>
-    document.querySelectorAll('.cell.valid, .cell.capture, .cell.selected').forEach(cell => {
-        cell.addEventListener('click', () => {
-            cell.querySelector('form').submit();
+<?php if ($gameController->checkPlayersTurn()) : ?>
+    <script>
+        document.querySelectorAll('.cell.valid, .cell.capture, .cell.selected').forEach(cell => {
+            cell.addEventListener('click', () => {
+                cell.querySelector('form').submit();
+            });
         });
-    });
 
-    document.querySelectorAll('.cell img').forEach(img => {
-        img.addEventListener('click', () => {
-            img.closest('form').submit();
+        document.querySelectorAll('.cell img.<?= $gameController->getBoardTurn() ?>').forEach(img => {
+            img.addEventListener('click', () => {
+                img.closest('form').submit();
+            });
         });
-    });
-</script>
+    </script>
+<?php endif; ?>
