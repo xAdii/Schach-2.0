@@ -212,6 +212,8 @@ class GameController
 
         $board = $this->gameModel->fetchBoard($boardID);
         $_SESSION['board']['boardID'] = $board['ID'];
+        $_SESSION['board']['playerWhiteID'] = $board['playerWhiteID'];
+        $_SESSION['board']['playerBlackID'] = $board['playerBlackID'];
 
         $pieces = $this->gameModel->fetchPieces($boardID);
         foreach ($pieces as $piece) {
@@ -251,9 +253,6 @@ class GameController
                     break;
             }
         }
-
-        header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=board');
-        exit();
     }
 
     public function handleSelectCell()
