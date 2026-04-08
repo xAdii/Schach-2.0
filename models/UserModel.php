@@ -42,4 +42,11 @@ class UserModel
         $stmt->execute([$name]);
         return $stmt->fetch();
     }
+
+    public function fetchUserByID($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM user WHERE ID = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
 }

@@ -188,4 +188,9 @@ class UserController
 
         $this->userModel->updateUserPassword($_SESSION['user']['ID'], $password_hash);
     }
+
+    public function getUsernameByID($userID)
+    {
+        return $this->userModel->fetchUserByID($userID)['name'] ?? 'Unbekannt';
+    }
 }
