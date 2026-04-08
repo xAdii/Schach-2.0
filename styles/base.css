@@ -18,7 +18,7 @@
 
 :root {
   --background-color: rgb(255, 255, 255);
-  --primary-color: rgb(49, 119, 30);
+  --primary-color: rgb(62, 126, 45);
   --secondary-color: rgb(16, 134, 180);
   --third-color: rgb(28, 167, 90);
   --text-color: rgb(24, 24, 24);
@@ -26,6 +26,7 @@
   --danger-color: rgb(86, 43, 43);
   --border-color: rgba(12, 129, 18, 0.35);
   --info-color: rgb(201, 187, 0);
+  --danger-background: rgb(182, 69, 69);
 }
 
 * {
@@ -176,7 +177,7 @@ p.error {
 
 .logout {
   color: var(--text-color);
-  background-color: var(--danger-color)
+  background-color: var(--danger-background)
 }
 
 .create_new_game {
@@ -191,7 +192,7 @@ p.error {
 
 .delete_game {
   color: var(--text-color);
-  background-color: var(--danger-color)
+  background-color: var(--danger-background)
 }
 
 .update_name_password {
