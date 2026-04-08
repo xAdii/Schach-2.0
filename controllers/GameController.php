@@ -335,6 +335,50 @@ class GameController
         return false;
     }
 
+    public function checkPlayerWhite()
+    {
+        if (!isset($_SESSION['user']['ID']) || empty($_SESSION['user']['ID'])) {
+            return false;
+        }
+
+        if (!isset($_SESSION['board']['boardID']) || empty($_SESSION['board']['boardID'])) {
+            return false;
+        }
+
+        $userID = $_SESSION['user']['ID'] ?? null;
+        $boardID = $_SESSION['board']['boardID'] ?? null;
+
+        $board = $this->gameModel->fetchBoard($boardID);
+
+        if ($userID === $board['playerWhiteID']) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function checkPlayerBlack()
+    {
+        if (!isset($_SESSION['user']['ID']) || empty($_SESSION['user']['ID'])) {
+            return false;
+        }
+
+        if (!isset($_SESSION['board']['boardID']) || empty($_SESSION['board']['boardID'])) {
+            return false;
+        }
+
+        $userID = $_SESSION['user']['ID'] ?? null;
+        $boardID = $_SESSION['board']['boardID'] ?? null;
+
+        $board = $this->gameModel->fetchBoard($boardID);
+
+        if ($userID === $board['playerBlackID']) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function getBoardTurn()
     {
         if (!isset($_SESSION['board']['boardID']) || empty($_SESSION['board']['boardID'])) {
