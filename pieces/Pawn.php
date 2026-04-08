@@ -21,7 +21,6 @@ class Pawn extends GenericPiece
       foreach ($direction as $move) {
         if ($this->color === 'black') {
           $move[0] = -$move[0];
-          $move[1] = -$move[1];
         }
 
         $newY = $this->position_y + $move[0];

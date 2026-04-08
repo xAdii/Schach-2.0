@@ -52,7 +52,6 @@ class ConfusedPawn extends GenericPiece
 
                     // Check if cell has own piece
                     if ($_SESSION['board'][$newY][$newX]->getColor() === $this->color) {
-                        array_push($blockedMoves, [$newY, $newX]);
                         continue 2;
                     }
 
