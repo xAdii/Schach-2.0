@@ -163,6 +163,10 @@ class GameController
 
     public function handleSelectCell()
     {
+        if (!$this->checkPlayersTurn()) {
+            return;
+        }
+
         $y = $_POST['y'] ?? null;
         $x = $_POST['x'] ?? null;
 
@@ -199,6 +203,10 @@ class GameController
 
     public function handleMovePiece()
     {
+        if (!$this->checkPlayersTurn()) {
+            return;
+        }
+
         $y = $_POST['y'] ?? null;
         $x = $_POST['x'] ?? null;
 
@@ -223,6 +231,11 @@ class GameController
         $boardID = $_SESSION['board']['boardID'];
         $this->gameModel->updatePiecePosition($boardID, $selectedY, $selectedX, $y, $x);
 
+        // Update turn in the database
+        $turn = $this->gameModel->getBoardTurn($boardID);
+        $newTurn = ($turn === 'white') ? 'black' : 'white';
+        $this->gameModel->setBoardTurn($boardID, $newTurn);
+
         // Move the piece in the session
         $_SESSION['board'][$y][$x] = $_SESSION['board'][$selectedY][$selectedX];
         $_SESSION['board'][$y][$x]->setPosition($y, $x);
@@ -239,6 +252,10 @@ class GameController
 
     public function handleCapturePiece()
     {
+        if (!$this->checkPlayersTurn()) {
+            return;
+        }
+
         $y = $_POST['y'] ?? null;
         $x = $_POST['x'] ?? null;
 
@@ -267,6 +284,11 @@ class GameController
         // Update the piece position in the database
         $boardID = $_SESSION['board']['boardID'];
         $this->gameModel->updatePiecePosition($boardID, $selectedY, $selectedX, $y, $x);
+
+        // Update turn in the database
+        $turn = $this->gameModel->getBoardTurn($boardID);
+        $newTurn = ($turn === 'white') ? 'black' : 'white';
+        $this->gameModel->setBoardTurn($boardID, $newTurn);
 
         // Capture the piece in the session
         $_SESSION['board'][$y][$x] = $_SESSION['board'][$selectedY][$selectedX];
