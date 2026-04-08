@@ -274,6 +274,11 @@ class GameController
         $boardID = $_SESSION['board']['boardID'];
         $this->gameModel->updatePiecePosition($boardID, $selectedY, $selectedX, $y, $x);
 
+        // Update turn in the database
+        $turn = $this->gameModel->getBoardTurn($boardID);
+        $newTurn = ($turn === 'white') ? 'black' : 'white';
+        $this->gameModel->setBoardTurn($boardID, $newTurn);
+
         // Capture the piece in the session
         $_SESSION['board'][$y][$x] = $_SESSION['board'][$selectedY][$selectedX];
         $_SESSION['board'][$y][$x]->setPosition($y, $x);
