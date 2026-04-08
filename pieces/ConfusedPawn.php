@@ -21,10 +21,6 @@ class ConfusedPawn extends GenericPiece
 
         foreach ($this->moveSet as $direction) {
             foreach ($direction as $move) {
-                if ($this->color === 'black') {
-                    $move[0] = -$move[0];
-                    $move[1] = -$move[1];
-                }
 
                 $newY = $this->position_y + $move[0];
                 $newX = $this->position_x + $move[1];
