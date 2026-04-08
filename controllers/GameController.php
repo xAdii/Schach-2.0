@@ -195,9 +195,6 @@ class GameController
     }
 
     public function syncBoard() {
-        echo "syncBoard called";
-
-
         $boardID = $_SESSION['board']['boardID'] ?? null;
 
         unset($_SESSION['board']);
