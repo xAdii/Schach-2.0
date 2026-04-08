@@ -51,7 +51,19 @@ class GameController
     {
         $userID = $_SESSION['user']['ID'] ?? null;
 
-        $this->gameModel->insertBoard($userID, $userID);
+        // Zufällig Farbe zuweisen
+        $colors = ['white', 'black'];
+        $assignedColor = $colors[array_rand($colors)];
+
+        if ($assignedColor === 'white') {
+            $playerWhiteID = $userID;
+            $playerBlackID = null;
+        } else {
+            $playerWhiteID = null;
+            $playerBlackID = $userID;
+        }
+
+        $this->gameModel->insertBoard($playerWhiteID, $playerBlackID);
 
         $boardID = $this->gameModel->fetchMaxBoardID()['ID'];
 
@@ -115,8 +127,20 @@ class GameController
 
         $board = $this->gameModel->fetchBoard($boardID);
         $_SESSION['board']['boardID'] = $board['ID'];
-        $_SESSION['board']['playerWhiteID'] = $board['playerWhiteID'];
-        $_SESSION['board']['playerBlackID'] = $board['playerBlackID'];
+
+        // Check for open player slot and set Players ID
+        if ($board['playerWhiteID'] === null && $board['playerBlackID'] != $_SESSION['user']['ID']) {
+            $this->gameModel->updateBoardPlayerWhite($boardID, $_SESSION['user']['ID']);
+            $_SESSION['board']['playerWhiteID'] = $_SESSION['user']['ID'];
+            $_SESSION['board']['playerBlackID'] = $board['playerBlackID'];
+        } elseif ($board['playerBlackID'] === null && $board['playerWhiteID'] != $_SESSION['user']['ID']) {
+            $this->gameModel->updateBoardPlayerBlack($boardID, $_SESSION['user']['ID']);
+            $_SESSION['board']['playerWhiteID'] = $board['playerWhiteID'];
+            $_SESSION['board']['playerBlackID'] = $_SESSION['user']['ID'];
+        } else {
+            $_SESSION['board']['playerWhiteID'] = $board['playerWhiteID'];
+            $_SESSION['board']['playerBlackID'] = $board['playerBlackID'];
+        }
 
         $pieces = $this->gameModel->fetchPieces($boardID);
         foreach ($pieces as $piece) {
@@ -324,6 +348,13 @@ class GameController
         $userID = $_SESSION['user']['ID'] ?? null;
 
         $games = $this->gameModel->fetchBoardsByUserID($userID);
+
+        return $games;
+    }
+
+    public function getEmptyGames()
+    {
+        $games = $this->gameModel->fetchEmptyBoards();
 
         return $games;
     }

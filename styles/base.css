@@ -204,3 +204,14 @@ p.error {
   color: white;
   background-color: black
 }
+
+/* flex container */
+.flex-parent {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.flex-child {
+    flex: 1 1 300px;
+}
