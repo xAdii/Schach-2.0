@@ -10,6 +10,12 @@ class GameController
 
     public function handleRequest()
     {
+        // Handle GET turn check (for polling)
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'getTurn') {
+            $this->handleGetTurn();
+            return;
+        }
+
         // Check if the request method is POST
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             return;
@@ -45,6 +51,14 @@ class GameController
                 $this->handleCapturePiece();
                 break;
         }
+    }
+
+    public function handleGetTurn()
+    {
+        header('Content-Type: text/plain');
+        $boardID = $_SESSION['board']['boardID'] ?? null;
+        echo $boardID ? $this->gameModel->getBoardTurn($boardID) : '';
+        exit();
     }
 
     public function handleCreateGame()
@@ -136,6 +150,7 @@ class GameController
 
         $board = $this->gameModel->fetchBoard($boardID);
         $_SESSION['board']['boardID'] = $board['ID'];
+        $_SESSION['board']['turn'] = $board['turn'];
 
         // Check for open player slot and set Players ID
         if ($board['playerWhiteID'] === null && $board['playerBlackID'] != $_SESSION['user']['ID']) {
@@ -194,7 +209,8 @@ class GameController
         exit();
     }
 
-    public function syncBoard() {
+    public function syncBoard()
+    {
         $boardID = $_SESSION['board']['boardID'] ?? null;
 
         unset($_SESSION['board']);
@@ -254,6 +270,8 @@ class GameController
             }
         }
     }
+
+
 
     public function handleSelectCell()
     {
