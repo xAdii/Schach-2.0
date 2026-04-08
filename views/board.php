@@ -10,6 +10,22 @@ $gameController->syncBoard();
 $board = $_SESSION['board'] ?? null;
 ?>
 
+<?php if (!$gameController->checkPlayersTurn() && !($gameController->checkPlayerWhite() && $gameController->checkPlayerBlack())) : ?>
+    <script>
+        setInterval(function() {
+            fetch('<?= $_SERVER["PHP_SELF"] ?>?action=getTurn')
+                .then(function(r) {
+                    return r.text();
+                })
+                .then(function(turn) {
+                    if (turn.trim() !== '<?= $gameController->getBoardTurn() ?>') {
+                        location.reload();
+                    }
+                });
+        }, 1000);
+    </script>
+<?php endif; ?>
+
 <!-- Lokales Spiel: Spieler spielt gegen sich selbst, Spielbrett dreht sich nach jedem Zug -->
 <?php if ($gameController->checkPlayerWhite() && $gameController->checkPlayerBlack()) : ?>
     <div class="board">
