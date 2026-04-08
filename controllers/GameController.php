@@ -82,6 +82,8 @@ class GameController
         }
 
         // For testing purposes only:
+        $this->gameModel->insertPiece($boardID, "pony", "white", 5, 4);
+        $this->gameModel->insertPiece($boardID, "pony", "black", 5, 3);
         $this->gameModel->insertPiece($boardID, "gazelle", "white", 4, 4);
         $this->gameModel->insertPiece($boardID, "prinzessin", "black", 3, 3);
 
@@ -143,8 +145,16 @@ class GameController
                 case "confusedPawn":
                     $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new ConfusedPawn($piece['color'], $piece['position_y'], $piece['position_x']);
                     break;
+<<<<<<< HEAD
                 case "prinzessin":
                     $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Prinzessin($piece['color'], $piece['position_y'], $piece['position_x']);
+=======
+                case "pony":
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Pony($piece['color'], $piece['position_y'], $piece['position_x']);
+                    break;
+                case 'thomas':
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Thomas($piece['color'], $piece['position_y'], $piece['position_x']);
+>>>>>>> 328a3a6be4a2966ace7ec235e21a8008dee36861
                     break;
             }
         }
