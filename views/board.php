@@ -78,7 +78,7 @@ $board = $_SESSION['board'] ?? null;
     ?>
     <?php
     $colour = $gameController->checkPlayerWhite() ? 'white' : 'black';
-    $newPieces = ['confusedpawn', 'gazelle', 'pony', 'prinzessin', 'thomas'];
+    $newPieces = ['confusedPawn', 'gazelle', 'pony', 'prinzessin', 'thomas'];
     foreach ($newPieces as $piece) : ?>
         <img src="./images/<?= $colour ?>/<?php echo $piece; ?>.png" alt="Schachfigur" class="<?= $colour ?> piece-shop">
     <?php endforeach; ?>
