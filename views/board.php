@@ -6,6 +6,7 @@ if (!isset($_SESSION['user'])) {
 }
 $user = $_SESSION['user'] ?? null;
 
+$gameController->syncBoard();
 $board = $_SESSION['board'] ?? null;
 ?>
 
