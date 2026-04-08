@@ -26,7 +26,7 @@ $selectedPiece = isset($_SESSION['selectedPiece']) && $_SESSION['selectedPiece']
         <?php endif; ?>
         <div class="highlight-overlay">
             <?php if (isset($board[$y][$x]) && $board[$y][$x]) : ?>
-                <img src="<?= $board[$y][$x]->getImg(); ?>" alt="Schachfigur">
+                <img src="<?= $board[$y][$x]->getImg(); ?>" alt="Schachfigur" class="<?= $board[$y][$x]->getColor(); ?>">
             <?php endif; ?>
         </div>
     </form>

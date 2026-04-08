@@ -9,26 +9,66 @@ $user = $_SESSION['user'] ?? null;
 $board = $_SESSION['board'] ?? null;
 ?>
 
-<div class="board">
-    <?php for ($y = 0; $y < 8; $y++) : ?>
-        <div class="row">
-            <?php for ($x = 0; $x < 8; $x++) : ?>
-                <?php include './modules/cell.php'; ?>
+<!-- Lokales Spiel: Spieler spielt gegen sich selbst, Spielbrett dreht sich nach jedem Zug -->
+<?php if ($gameController->checkPlayerWhite() && $gameController->checkPlayerBlack()) : ?>
+    <div class="board">
+        <?php if ($gameController->getBoardTurn() === 'white') : ?>
+            <?php for ($y = 0; $y < 8; $y++) : ?>
+                <div class="row">
+                    <?php for ($x = 0; $x < 8; $x++) : ?>
+                        <?php include './modules/cell.php'; ?>
+                    <?php endfor; ?>
+                </div>
             <?php endfor; ?>
-        </div>
-    <?php endfor; ?>
-</div>
+        <?php else : ?>
+            <?php for ($y = 7; $y >= 0; $y--) : ?>
+                <div class="row">
+                    <?php for ($x = 7; $x >= 0; $x--) : ?>
+                        <?php include './modules/cell.php'; ?>
+                    <?php endfor; ?>
+                </div>
+            <?php endfor; ?>
+        <?php endif; ?>
+    </div>
 
-<script>
-    document.querySelectorAll('.cell.valid, .cell.capture, .cell.selected').forEach(cell => {
-        cell.addEventListener('click', () => {
-            cell.querySelector('form').submit();
-        });
-    });
+<!-- Online-Spiel: Spieler ist Weiß, Spielbrett dreht sich nicht -->
+<?php elseif ($gameController->checkPlayerWhite() && !$gameController->checkPlayerBlack()) : ?>
+    <div class="board">
+        <?php for ($y = 0; $y < 8; $y++) : ?>
+            <div class="row">
+                <?php for ($x = 0; $x < 8; $x++) : ?>
+                    <?php include './modules/cell.php'; ?>
+                <?php endfor; ?>
+            </div>
+        <?php endfor; ?>
+    </div>
 
-    document.querySelectorAll('.cell img').forEach(img => {
-        img.addEventListener('click', () => {
-            img.closest('form').submit();
+<!-- Online-Spiel: Spieler ist Schwarz, Spielbrett dreht sich nicht -->
+<?php elseif (!$gameController->checkPlayerWhite() && $gameController->checkPlayerBlack()) : ?>
+    <div class="board">
+        <?php for ($y = 7; $y >= 0; $y--) : ?>
+            <div class="row">
+                <?php for ($x = 7; $x >= 0; $x--) : ?>
+                    <?php include './modules/cell.php'; ?>
+                <?php endfor; ?>
+            </div>
+        <?php endfor; ?>
+    </div>
+<?php endif; ?>
+
+<!-- Eventlistener nur aktivieren, wenn es der Spieler ist, der am Zug ist -->
+<?php if ($gameController->checkPlayersTurn()) : ?>
+    <script>
+        document.querySelectorAll('.cell.valid, .cell.capture, .cell.selected').forEach(cell => {
+            cell.addEventListener('click', () => {
+                cell.querySelector('form').submit();
+            });
         });
-    });
-</script>
+
+        document.querySelectorAll('.cell img.<?= $gameController->getBoardTurn() ?>').forEach(img => {
+            img.addEventListener('click', () => {
+                img.closest('form').submit();
+            });
+        });
+    </script>
+<?php endif; ?>

@@ -34,6 +34,19 @@ class GameModel
         return $stmt->fetch();
     }
 
+    public function setBoardTurn($boardID, $turn)
+    {
+        $stmt = $this->pdo->prepare("UPDATE boards SET turn = ? WHERE ID = ?");
+        return $stmt->execute([$turn, $boardID]);
+    }
+
+    public function getBoardTurn($boardID)
+    {
+        $stmt = $this->pdo->prepare("SELECT turn FROM boards WHERE ID = ?");
+        $stmt->execute([$boardID]);
+        return $stmt->fetchColumn();
+    }
+
     public function deleteBoard($boardID)
     {
         $stmt = $this->pdo->prepare("DELETE FROM boards WHERE ID = ?");
