@@ -21,10 +21,6 @@ class ConfusedPawn extends GenericPiece
 
         foreach ($this->moveSet as $direction) {
             foreach ($direction as $move) {
-                if ($this->color === 'black') {
-                    $move[0] = -$move[0];
-                    $move[1] = -$move[1];
-                }
 
                 $newY = $this->position_y + $move[0];
                 $newX = $this->position_x + $move[1];
@@ -56,7 +52,6 @@ class ConfusedPawn extends GenericPiece
 
                     // Check if cell has own piece
                     if ($_SESSION['board'][$newY][$newX]->getColor() === $this->color) {
-                        array_push($blockedMoves, [$newY, $newX]);
                         continue 2;
                     }
 

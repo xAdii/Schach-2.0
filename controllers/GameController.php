@@ -51,7 +51,26 @@ class GameController
     {
         $userID = $_SESSION['user']['ID'] ?? null;
 
-        $this->gameModel->insertBoard($userID, $userID);
+        // Check if game is of type local or public
+        $gameType = $_POST['gameType'] ?? null;
+
+        if ($gameType === 'public') {
+            $colors = ['white', 'black'];
+            $assignedColor = $colors[array_rand($colors)];
+
+            if ($assignedColor === 'white') {
+                $playerWhiteID = $userID;
+                $playerBlackID = null;
+            } else {
+                $playerWhiteID = null;
+                $playerBlackID = $userID;
+            }
+        } else {
+            $playerWhiteID = $userID;
+            $playerBlackID = $userID;
+        }
+
+        $this->gameModel->insertBoard($playerWhiteID, $playerBlackID);
 
         $boardID = $this->gameModel->fetchMaxBoardID()['ID'];
 
@@ -117,8 +136,20 @@ class GameController
 
         $board = $this->gameModel->fetchBoard($boardID);
         $_SESSION['board']['boardID'] = $board['ID'];
-        $_SESSION['board']['playerWhiteID'] = $board['playerWhiteID'];
-        $_SESSION['board']['playerBlackID'] = $board['playerBlackID'];
+
+        // Check for open player slot and set Players ID
+        if ($board['playerWhiteID'] === null && $board['playerBlackID'] != $_SESSION['user']['ID']) {
+            $this->gameModel->updateBoardPlayerWhite($boardID, $_SESSION['user']['ID']);
+            $_SESSION['board']['playerWhiteID'] = $_SESSION['user']['ID'];
+            $_SESSION['board']['playerBlackID'] = $board['playerBlackID'];
+        } elseif ($board['playerBlackID'] === null && $board['playerWhiteID'] != $_SESSION['user']['ID']) {
+            $this->gameModel->updateBoardPlayerBlack($boardID, $_SESSION['user']['ID']);
+            $_SESSION['board']['playerWhiteID'] = $board['playerWhiteID'];
+            $_SESSION['board']['playerBlackID'] = $_SESSION['user']['ID'];
+        } else {
+            $_SESSION['board']['playerWhiteID'] = $board['playerWhiteID'];
+            $_SESSION['board']['playerBlackID'] = $board['playerBlackID'];
+        }
 
         $pieces = $this->gameModel->fetchPieces($boardID);
         foreach ($pieces as $piece) {
@@ -161,6 +192,63 @@ class GameController
 
         header('Location: ' . $_SERVER['PHP_SELF'] . '?nav=board');
         exit();
+    }
+
+    public function syncBoard() {
+        $boardID = $_SESSION['board']['boardID'] ?? null;
+
+        $_SESSION['board'] = [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ];
+
+        $board = $this->gameModel->fetchBoard($boardID);
+        $_SESSION['board']['boardID'] = $board['ID'];
+
+        $pieces = $this->gameModel->fetchPieces($boardID);
+        foreach ($pieces as $piece) {
+            switch ($piece['type']) {
+                case 'pawn':
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Pawn($piece['color'], $piece['position_y'], $piece['position_x']);
+                    break;
+                case 'rook':
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Rook($piece['color'], $piece['position_y'], $piece['position_x']);
+                    break;
+                case 'knight':
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Knight($piece['color'], $piece['position_y'], $piece['position_x']);
+                    break;
+                case 'bishop':
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Bishop($piece['color'], $piece['position_y'], $piece['position_x']);
+                    break;
+                case 'queen':
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Queen($piece['color'], $piece['position_y'], $piece['position_x']);
+                    break;
+                case 'king':
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new King($piece['color'], $piece['position_y'], $piece['position_x']);
+                    break;
+                case 'gazelle':
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Gazelle($piece['color'], $piece['position_y'], $piece['position_x']);
+                    break;
+                case "confusedPawn":
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new ConfusedPawn($piece['color'], $piece['position_y'], $piece['position_x']);
+                    break;
+                case "prinzessin":
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Prinzessin($piece['color'], $piece['position_y'], $piece['position_x']);
+                    break;
+                case "pony":
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Pony($piece['color'], $piece['position_y'], $piece['position_x']);
+                    break;
+                case 'thomas':
+                    $_SESSION['board'][$piece['position_y']][$piece['position_x']] = new Thomas($piece['color'], $piece['position_y'], $piece['position_x']);
+                    break;
+            }
+        }
     }
 
     public function handleSelectCell()
@@ -330,6 +418,13 @@ class GameController
         return $games;
     }
 
+    public function getEmptyGames()
+    {
+        $games = $this->gameModel->fetchEmptyBoards();
+
+        return $games;
+    }
+
     public function checkPlayersTurn()
     {
         if (!isset($_SESSION['user']['ID']) || empty($_SESSION['user']['ID'])) {
@@ -408,5 +503,12 @@ class GameController
         $turn = $this->gameModel->getBoardTurn($boardID);
 
         return $turn;
+    }
+
+    public function getBoardByID($boardID)
+    {
+        $board = $this->gameModel->fetchBoard($boardID);
+
+        return $board;
     }
 }

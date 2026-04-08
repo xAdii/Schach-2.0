@@ -20,6 +20,13 @@ class GameModel
         return $stmt->fetch();
     }
 
+    public function fetchEmptyBoards()
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM boards WHERE playerBlackID IS NULL OR playerWhiteID IS NULL ORDER BY ID DESC");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     public function fetchBoardsByUserID($userID)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM boards WHERE playerWhiteID = ? OR playerBlackID = ? ORDER BY ID DESC");
@@ -38,6 +45,18 @@ class GameModel
     {
         $stmt = $this->pdo->prepare("UPDATE boards SET turn = ? WHERE ID = ?");
         return $stmt->execute([$turn, $boardID]);
+    }
+
+    public function updateBoardPlayerWhite($boardID, $playerWhiteID)
+    {
+        $stmt = $this->pdo->prepare("UPDATE boards SET playerWhiteID = ? WHERE ID = ?");
+        return $stmt->execute([$playerWhiteID, $boardID]);
+    }
+
+    public function updateBoardPlayerBlack($boardID, $playerBlackID)
+    {
+        $stmt = $this->pdo->prepare("UPDATE boards SET playerBlackID = ? WHERE ID = ?");
+        return $stmt->execute([$playerBlackID, $boardID]);
     }
 
     public function getBoardTurn($boardID)
