@@ -18,6 +18,7 @@
         <li><strong>Läufer:</strong> Zieht beliebig viele Felder diagonal.</li>
         <li><strong>Dame:</strong> Zieht beliebig viele Felder in alle Richtungen.</li>
         <li><strong>König:</strong> Zieht ein Feld in jede Richtung.</li>
+        <li><strong>Thomas:</strong> Zieht ein Feld nach vorne und schlägt nur geradeaus, wenn zwei Felder vor ihm ein Gegner steht.</li>
     </ul>
 </section>
 <section>
