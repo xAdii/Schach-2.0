@@ -73,6 +73,17 @@ $board = $_SESSION['board'] ?? null;
     </div>
 <?php endif; ?>
 
+<div class="row piece-shop-row">
+    <?php // ist ne idee : foreach ($gameController->getPieceShop() as $piece) : 
+    ?>
+    <?php
+    $newPieces = ['confusedpawn', 'gazelle', 'pony', 'prinzessin', 'thomas'];
+    foreach ($newPieces as $piece) : ?>
+        <img src="./images/white/<?php echo $piece; ?>.png" alt="Schachfigur" class="white piece-shop">
+    <?php endforeach; ?>
+</div>
+
+
 <!-- Eventlistener nur aktivieren, wenn es der Spieler ist, der am Zug ist -->
 <?php if ($gameController->checkPlayersTurn()) : ?>
     <script>

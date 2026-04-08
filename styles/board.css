@@ -39,6 +39,7 @@
 .cell.valid {
     cursor: pointer;
 }
+
 .cell.valid .highlight-overlay {
     background-color: rgba(0, 255, 0, 0.7);
 }
@@ -46,6 +47,7 @@
 .cell.capture {
     cursor: pointer;
 }
+
 .cell.capture .highlight-overlay {
     background-color: rgba(255, 0, 0, 0.7);
 }
@@ -53,6 +55,7 @@
 .cell.blocked {
     cursor: not-allowed;
 }
+
 .cell.blocked .highlight-overlay {
     background-color: rgba(255, 255, 0, 0.7);
 }
@@ -60,6 +63,7 @@
 .cell.selected {
     cursor: pointer;
 }
+
 .cell.selected .highlight-overlay {
     background-color: rgba(0, 0, 255, 0.7);
     animation: pulse 1s infinite;
@@ -79,4 +83,16 @@
     height: 64px;
     image-rendering: pixelated;
     cursor: pointer;
+}
+
+.piece-shop {
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+    cursor: pointer;
+}
+
+.piece-shop-row {
+    justify-content: center;
+    margin-top: 3rem;
 }
