@@ -26,9 +26,13 @@ $board = $_SESSION['board'] ?? null;
     </script>
 <?php endif; ?>
 
+
+<div class="flex-parent">
+
+
 <!-- Lokales Spiel: Spieler spielt gegen sich selbst, Spielbrett dreht sich nach jedem Zug -->
 <?php if ($gameController->checkPlayerWhite() && $gameController->checkPlayerBlack()) : ?>
-    <div class="board">
+    <div class="board flex-child">
         <?php if ($gameController->getBoardTurn() === 'white') : ?>
             <?php for ($y = 0; $y < 8; $y++) : ?>
                 <div class="row">
@@ -50,7 +54,7 @@ $board = $_SESSION['board'] ?? null;
 
     <!-- Online-Spiel: Spieler ist Weiß, Spielbrett dreht sich nicht -->
 <?php elseif ($gameController->checkPlayerWhite() && !$gameController->checkPlayerBlack()) : ?>
-    <div class="board">
+    <div class="board flex-child">
         <?php for ($y = 0; $y < 8; $y++) : ?>
             <div class="row">
                 <?php for ($x = 0; $x < 8; $x++) : ?>
@@ -62,7 +66,7 @@ $board = $_SESSION['board'] ?? null;
 
     <!-- Online-Spiel: Spieler ist Schwarz, Spielbrett dreht sich nicht -->
 <?php elseif (!$gameController->checkPlayerWhite() && $gameController->checkPlayerBlack()) : ?>
-    <div class="board">
+    <div class="board flex-child">
         <?php for ($y = 7; $y >= 0; $y--) : ?>
             <div class="row">
                 <?php for ($x = 7; $x >= 0; $x--) : ?>
@@ -72,6 +76,40 @@ $board = $_SESSION['board'] ?? null;
         <?php endfor; ?>
     </div>
 <?php endif; ?>
+
+<?php
+if (isset($_POST['openShop'])) {
+    $_SESSION['showShop'] = true;
+}
+
+if (isset($_POST['closeShop'])) {
+    $_SESSION['showShop'] = false;
+}
+?>
+
+<form method="post" style="margin-top:15px;">
+    <button type="submit" name="openShop" style="padding:10px 20px; cursor:pointer;">
+        Shop öffnen
+    </button>
+</form>
+
+<?php if (!empty($_SESSION['showShop'])) : ?>
+    <div class="flex-child" style="
+        margin-top:15px;
+        width:420px;
+        padding:15px;
+        border:1px solid #ccc;
+        border-radius:10px;
+        background:#f8f8f8;
+    ">
+        <form method="post" style="text-align:right; margin-bottom:10px;">
+            <button type="submit" name="closeShop" style="cursor:pointer;">✖</button>
+        </form>
+
+        <?php include './modules/shop.php'; ?>
+    </div>
+<?php endif; ?>
+</div>
 
 <div class="row piece-shop-row">
     <?php // ist ne idee : foreach ($gameController->getPieceShop() as $piece) : 
@@ -83,7 +121,6 @@ $board = $_SESSION['board'] ?? null;
         <img src="./images/<?= $colour ?>/<?php echo $piece; ?>.png" alt="Schachfigur" class="<?= $colour ?> piece-shop">
     <?php endforeach; ?>
 </div>
-
 
 <!-- Eventlistener nur aktivieren, wenn es der Spieler ist, der am Zug ist -->
 <?php if ($gameController->checkPlayersTurn()) : ?>
