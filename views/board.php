@@ -85,11 +85,11 @@ if (isset($_POST['closeShop'])) {
 }
 ?>
 
-<form method="post" style="margin-top:15px;">
-    <button type="submit" name="openShop" class="shop-open-button">
-        Shop öffnen
-    </button>
-</form>
+<?php if (empty($_SESSION['showShop'])) : ?>
+    <form method="post" style="margin-top:15px;">
+        <button type="submit" name="openShop" class="shop-open-button">🡢 Shop öffnen</button>
+    </form>
+<?php endif; ?>
 
 <?php if (!empty($_SESSION['showShop'])) : ?>
     <div class="flex-child shop-box">
