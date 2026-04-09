@@ -1,4 +1,4 @@
-<h1>Schach 2.0 - Index Page</h1>
+<h1>Startseite</h1>
 <?php include './modules/navigation.php';
 if (!isset($_SESSION['user'])) : ?>
     <p>Willkommen auf Schach 2.0! Bitte logge dich ein oder registriere dich, um zu spielen.</p>

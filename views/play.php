@@ -1,4 +1,4 @@
-<h1>Play</h1>
+<h1>Spielen</h1>
 <?php include './modules/navigation.php';
 $userBoards = $gameController->getUserGames();
 $emptyBoards = $gameController->getEmptyGames();

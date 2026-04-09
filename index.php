@@ -34,7 +34,7 @@ $gameController->handleRequest();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Schach 2.0</title>
     <link rel="stylesheet" href="./styles/animations.css">
     <link rel="stylesheet" href="./styles/base.css">
     <link rel="stylesheet" href="./styles/board.css">
