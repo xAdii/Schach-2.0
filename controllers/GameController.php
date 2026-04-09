@@ -114,14 +114,6 @@ class GameController
             $this->gameModel->insertPiece($boardID, "pawn", "black", 1, $i);
         }
 
-        // For testing purposes only:
-        $this->gameModel->insertPiece($boardID, "pony", "white", 4, 2);
-        $this->gameModel->insertPiece($boardID, "gazelle", "white", 4, 3);
-        $this->gameModel->insertPiece($boardID, "prinzessin", "white", 4, 4);
-        $this->gameModel->insertPiece($boardID, "thomas", "white", 4, 5);
-        $this->gameModel->insertPiece($boardID, "confusedPawn", "white", 4, 6);
-
-
         $this->handleJoinGame($boardID);
     }
 
