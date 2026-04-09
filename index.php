@@ -1,7 +1,7 @@
 <?php
 // Autoloader für Models, Controllers und Pieces
 spl_autoload_register(function ($classname) {
-    $paths = ['models/', 'controllers/', 'pieces/'];
+    $paths = ['models/', 'controllers/', 'classes/pieces/'];
     foreach ($paths as $path) {
         $file = __DIR__ . '/' . $path . $classname . '.php';
 
