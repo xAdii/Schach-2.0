@@ -1,19 +1,28 @@
 Schach2.0/
-├── controllers/                             
-│   ├── GameController.php                  
-│   └── UserCpntroller.php
+├── controllers/
+│   ├── GameController.php
+│   └── UserController.php
 │
 ├── fonts/
 │   └── Lexend.ttf
 │
 ├── images/
-│   └── black/
-|       ├── king.png
-|       └── ... .png
+│   ├── black/
+│   │   ├── king.png
+│   │   └── ... .png
+│   │
+│   ├── obstacles/
+│   │   ├── bananaPeel.png
+│   │   └── ... .png
+│   │
+│   ├── powerUps/
+│   │   ├── detektor.png
+│   │   └── ... .png
+│   │
 │   └── white/
-|       ├── king.png
-|       └── ... .png
-|
+│       ├── king.png
+│       └── ... .png
+│
 ├── models/
 │   ├── GameModel.php
 │   └── UserModel.php
@@ -25,15 +34,15 @@ Schach2.0/
 │   └── redirects.sql
 │
 ├── pieces/
-│   ├── GenericPiece.php/
-│   ├── King.php/
-│   └── ... .php/
-|
+│   ├── GenericPiece.php
+│   ├── King.php
+│   └── ... .php
+│
 ├── styles/
 │   ├── animations.css
 │   ├── base.css
 │   └── board.css
-|
+│
 ├── views/
 │   ├── anleitung.php
 │   ├── board.php
@@ -46,6 +55,3 @@ Schach2.0/
 ├── db_config.php
 ├── GameController.json
 └── index.php
-
-
-# Kapitel 1: Controller
