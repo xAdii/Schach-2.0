@@ -38,6 +38,7 @@ $gameController->handleRequest();
     <link rel="stylesheet" href="./styles/animations.css">
     <link rel="stylesheet" href="./styles/base.css">
     <link rel="stylesheet" href="./styles/board.css">
+    <link rel="stylesheet" href="./styles/shop.css">
 </head>
 
 <body>

@@ -1,0 +1,87 @@
+.shop-open-button {
+    background: #774308;
+    color: rgb(217, 255, 1);
+    border-radius: 12px;
+    width: fit-content;
+    border: #222 solid 3px;
+    cursor:pointer;
+}
+
+.shop-box {
+    background: #bb8a51;
+    border-radius: 6px;
+    padding: 20px;
+    width: fit-content;
+    border: #222 solid 3px;
+}
+
+.shop-title {
+    margin: 0 0 15px 0;
+    font-size: 34px;
+    color: rgb(217, 255, 1);
+    background-color: black;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.shop-close {
+    color: rgb(217, 255, 1);
+    background-color: rgb(146, 79, 17);
+    border: black solid 2px;
+}
+
+.shop-close:hover {
+  background-color: rgb(182, 0, 0);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.shop-grid {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.shop-item {
+    width: 150px;
+    background: rgb(134, 84, 8);
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+}
+
+.shop-image {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 10px;
+    background: #ddd;
+    border-radius: 8px;
+    line-height: 80px;
+}
+
+.shop-name {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.shop-price {
+    margin-bottom: 12px;
+    color: #ffffff;
+}
+
+.shop-button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    background: #222;
+    color: white;
+    cursor: pointer;
+}
+.shop-button:hover {
+    background: #ffd900ce;
+    color: black;
+    font-size: 16px;
+    border: #000000 solid 1px;
+    font-weight: bold;
+}

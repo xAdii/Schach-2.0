@@ -26,9 +26,7 @@ $board = $_SESSION['board'] ?? null;
     </script>
 <?php endif; ?>
 
-
 <div class="flex-parent">
-
 
 <!-- Lokales Spiel: Spieler spielt gegen sich selbst, Spielbrett dreht sich nach jedem Zug -->
 <?php if ($gameController->checkPlayerWhite() && $gameController->checkPlayerBlack()) : ?>
@@ -88,22 +86,15 @@ if (isset($_POST['closeShop'])) {
 ?>
 
 <form method="post" style="margin-top:15px;">
-    <button type="submit" name="openShop" style="padding:10px 20px; cursor:pointer;">
+    <button type="submit" name="openShop" class="shop-open-button">
         Shop öffnen
     </button>
 </form>
 
 <?php if (!empty($_SESSION['showShop'])) : ?>
-    <div class="flex-child" style="
-        margin-top:15px;
-        width:420px;
-        padding:15px;
-        border:1px solid #ccc;
-        border-radius:10px;
-        background:#f8f8f8;
-    ">
-        <form method="post" style="text-align:right; margin-bottom:10px;">
-            <button type="submit" name="closeShop" style="cursor:pointer;">✖</button>
+    <div class="flex-child shop-box">
+        <form method="post" style="text-align:right;">
+            <button type="submit" name="closeShop" class="shop-close" style="cursor:pointer;">✖</button>
         </form>
 
         <?php include './modules/shop.php'; ?>
