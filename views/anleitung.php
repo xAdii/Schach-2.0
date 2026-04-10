@@ -251,7 +251,7 @@
                     <td>Selten</td>
                     <td>9?</td>
                     <td>Ja, 1 Zug</td>
-                    <td>Eine Figur kann den Rest des Zuges nicht weiterlaufen, wenn sie auf die Falle geht.</td>
+                    <td>Ein Spieler kann maximal gleichzeitig nur eine Falle auf dem Spielfeld haben. Eine Figur kann den Rest des Zuges nicht weiterlaufen, wenn sie auf die Falle geht.</td>
                 </tr>
                 <tr>
                     <td>Degradierung</td>
