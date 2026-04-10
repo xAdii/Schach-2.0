@@ -30,7 +30,7 @@ $board = $_SESSION['board'] ?? null;
 
 <!-- Lokales Spiel: Spieler spielt gegen sich selbst, Spielbrett dreht sich nach jedem Zug -->
 <?php if ($gameController->checkPlayerWhite() && $gameController->checkPlayerBlack()) : ?>
-    <div class="board flex-child">
+    <div class="board flex-child-board">
         <?php if ($gameController->getBoardTurn() === 'white') : ?>
             <?php for ($y = 0; $y < 8; $y++) : ?>
                 <div class="row">
@@ -52,7 +52,7 @@ $board = $_SESSION['board'] ?? null;
 
     <!-- Online-Spiel: Spieler ist Weiß, Spielbrett dreht sich nicht -->
 <?php elseif ($gameController->checkPlayerWhite() && !$gameController->checkPlayerBlack()) : ?>
-    <div class="board flex-child">
+    <div class="board flex-child-board">
         <?php for ($y = 0; $y < 8; $y++) : ?>
             <div class="row">
                 <?php for ($x = 0; $x < 8; $x++) : ?>
@@ -64,7 +64,7 @@ $board = $_SESSION['board'] ?? null;
 
     <!-- Online-Spiel: Spieler ist Schwarz, Spielbrett dreht sich nicht -->
 <?php elseif (!$gameController->checkPlayerWhite() && $gameController->checkPlayerBlack()) : ?>
-    <div class="board flex-child">
+    <div class="board flex-child-board">
         <?php for ($y = 7; $y >= 0; $y--) : ?>
             <div class="row">
                 <?php for ($x = 7; $x >= 0; $x--) : ?>
