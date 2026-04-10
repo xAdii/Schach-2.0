@@ -150,6 +150,32 @@ p.error {
   text-shadow: 2px 2px 0 #000;
 }
 
+.rules-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 16px 0 28px;
+}
+
+.rules-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  background-color: #f7fff7;
+}
+
+.rules-table th,
+.rules-table td {
+  border: 1px solid var(--border-color);
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.rules-table th {
+  background-color: var(--primary-color);
+  color: white;
+}
+
 form {
   margin-top: 18px;
 }
